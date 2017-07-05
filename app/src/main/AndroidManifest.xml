@@ -30,6 +30,8 @@
         <activity android:name=".LandlinePaymentS1" />
         <activity android:name=".LandlinePaymentS2" />
         <activity android:name=".DatacardPaymentS1" />
+        <activity android:name=".BankAccount" />
+        <activity android:name=".Dth" />
         <activity android:name=".TransactionHistory" />
         <activity android:name=".RegisterUsers" />
         <activity android:name=".LoginActivity" />

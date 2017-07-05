@@ -49,7 +49,7 @@
                 android:id="@+id/mobilepayment"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/mobilep" />
 
@@ -57,7 +57,7 @@
                 android:id="@+id/landlinepayment"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/landlinep" />
 
@@ -65,9 +65,17 @@
                 android:id="@+id/datacardpayment"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/datacardp" />
+
+            <Button
+                android:id="@+id/dthcardpayment"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/dthp" />
 
         </LinearLayout>
 
@@ -76,6 +84,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/bankaccount"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:background="@drawable/bankaccountp"
+                android:textSize="35sp" />
+
+
 
             <Button
                 android:id="@+id/transactions"

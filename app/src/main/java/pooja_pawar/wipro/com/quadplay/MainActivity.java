@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button mobileButton,landlineButton,dataButton,transactionButton;
+    Button mobileButton,landlineButton,dataButton,transactionButton,bankaccountButton,dthButton;
     Button addUsers,testing,account,addOtp;
     ImageView batman;
     TextView username;
@@ -84,6 +84,24 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(getApplicationContext(),DatacardPaymentS1.class);
+                startActivity(i);
+            }
+        });
+
+        dthButton=(Button)findViewById(R.id.dthcardpayment);
+        dthButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getApplicationContext(),Dth.class);
+                startActivity(i);
+            }
+        });
+
+        bankaccountButton=(Button)findViewById(R.id.bankaccount);
+        bankaccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(getApplicationContext(),BankAccount.class);
                 startActivity(i);
             }
         });
