@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pranav_wasnik.wipro.com.recharger.AddUsers">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/userDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Users Details"
+            android:textSize="22sp"
+            android:layout_margin="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/textColor"/>
+
+        <Button
+            android:id="@+id/bankDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bank Details"
+            android:textSize="22sp"
+            android:layout_margin="20dp"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/textColor"/>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

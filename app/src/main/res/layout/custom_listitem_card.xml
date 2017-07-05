@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp">
+
+    <TextView
+        android:id="@+id/cardNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Card Number:"
+        android:textSize="22sp"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/cardNumber1"
+        android:layout_toRightOf="@id/cardNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4591745625897412"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:textSize="22sp"
+        />
+
+    <TextView
+        android:id="@+id/cardExpiry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Expiry:"
+        android:textSize="22sp"
+        android:textStyle="bold|italic"
+        android:layout_below="@id/cardNumber"/>
+
+    <TextView
+        android:id="@+id/cardExpiry2"
+        android:layout_toRightOf="@id/cardExpiry"
+        android:layout_below="@id/cardNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="07/17"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:textSize="22sp"
+        />
+
+    <TextView
+        android:id="@+id/cardCvv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CVV:"
+        android:textSize="22sp"
+        android:textStyle="bold|italic"
+        android:layout_below="@id/cardExpiry"/>
+
+    <TextView
+        android:id="@+id/cardCvv1"
+        android:layout_toRightOf="@id/cardCvv"
+        android:layout_below="@id/cardExpiry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="123"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:textSize="22sp"
+        />
+
+</RelativeLayout>

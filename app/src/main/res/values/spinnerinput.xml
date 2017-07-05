@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="providers">
+        <item>Aircel</item>
+        <item>Airtel</item>
+        <item>BSNL</item>
+        <item>Tata Docomo</item>
+        <item>Idea</item>
+        <item>MTNL Delhi</item>
+        <item>Reliance GSM</item>
+        <item>Telenor</item>
+        <item>Vodafone</item>
+        <item>MTS</item>
+        <item>Virgin GSM</item>
+        <item>Virgin CDMA</item>
+        <item>T24</item>
+        <item>Jio</item>
+    </string-array>
+
+    <string-array name="states">
+        <item>Andhra Pradesh</item>
+        <item>Assam</item>
+        <item>Bihar</item>
+        <item>Chennai</item>
+        <item>Delhi</item>
+        <item>Gujurat</item>
+        <item>Haryana</item>
+        <item>Himachal Pradesh</item>
+        <item>Karnataka</item>
+        <item>Kerela</item>
+        <item>Kolkata</item>
+        <item>Madhya Pradesh</item>
+        <item>Maharashtra</item>
+        <item>Mumbai</item>
+        <item>North East</item>
+        <item>Orissa</item>
+        <item>Punjab</item>
+        <item>Rajashtan</item>
+        <item>Tamil Nadu</item>
+        <item>Uttar Pradesh(E)</item>
+        <item>Uttar Pradesh(W)</item>
+        <item>West Bengal</item>
+        <item>JK</item>
+        <item>Uttaranchal</item>
+    </string-array>
+</resources>

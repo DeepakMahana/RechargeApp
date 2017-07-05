@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="User1">
+        <item>7521546521</item>
+        <item>rishabh@gmail.com</item>
+        <item>rishabh</item>
+        <item>Rishabh</item>
+        <item>Mumbai</item>
+    </string-array>
+
+    <string-array name="User2">
+        <item>7512564522</item>
+        <item>pranav@gmail.com</item>
+        <item>pranav</item>
+        <item>Pranav</item>
+        <item>Mumbai</item>
+    </string-array>
+
+    <string-array name="User3">
+        <item>9512564253</item>
+        <item>pranit@gmail.com</item>
+        <item>pranit</item>
+        <item>Pranit</item>
+        <item>Mumbai</item>
+    </string-array>
+
+    <string-array name="User4">
+        <item>9546215325</item>
+        <item>amit@gmail.com</item>
+        <item>amit</item>
+        <item>Amit</item>
+        <item>Mumbai</item>
+    </string-array>
+
+    <string-array name="User5">
+        <item>9546832154</item>
+        <item>akhil@gmail.com</item>
+        <item>akhil</item>
+        <item>Akhil</item>
+        <item>Mumbai</item>
+    </string-array>
+
+
+    <!--Array-->
+    <array name="array">
+        <item>@array/User1</item>
+        <item>@array/User2</item>
+        <item>@array/User3</item>
+        <item>@array/User4</item>
+        <item>@array/User5</item>
+    </array>
+</resources>
