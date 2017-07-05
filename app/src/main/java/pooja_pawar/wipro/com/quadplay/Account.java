@@ -27,8 +27,8 @@ public class Account extends AppCompatActivity {
         username=(TextView)findViewById(R.id.userName);
         mobile=(TextView)findViewById(R.id.mobile1);
         email=(TextView)findViewById(R.id.email1);
-        updateBalance=(Button)findViewById(R.id.updateBalance);
-        listView=(ListView)findViewById(R.id.listviewCard);
+      //  updateBalance=(Button)findViewById(R.id.updateBalance);
+       // listView=(ListView)findViewById(R.id.listviewCard);
 
         db=new DbHandlersUsers(this);
         //Cursor cursor=db.getAllColumnsBank1(mobileSession);

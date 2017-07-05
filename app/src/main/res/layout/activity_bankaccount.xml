@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="pooja_pawar.wipro.com.quadplay.BankAccount">
+
+    <TextView
+        android:id="@+id/sectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Holder's Name"
+        android:textSize="22sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/datacardNumber"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="NAME"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:maxLength="10"
+        android:background="@drawable/boxlike_effect"
+        android:inputType="text"/>
+
+    <TextView
+        android:id="@+id/accountnumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account Number"
+        android:textSize="22sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/accountNO"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:hint="ACCOUNT NUMBER"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:maxLength="10"
+        android:background="@drawable/boxlike_effect"
+        android:inputType="number"/>
+
+    <TextView
+        android:id="@+id/cardtype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Credit/Debit"
+        android:textSize="22sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:textStyle="bold"/>
+
+    <EditText
+        android:id="@+id/cardno"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:maxLength="16"
+        android:background="@drawable/boxlike_effect"
+        android:inputType="number"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/cardExpiry1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/boxlike_effect"
+            android:gravity="center"
+            android:hint="MM"
+            android:inputType="number"
+            android:maxLength="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:text="/"
+            android:textSize="30dp" />
+
+        <EditText
+            android:id="@+id/cardExpiry2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/boxlike_effect"
+            android:gravity="center"
+            android:hint="YY"
+            android:inputType="number"
+            android:maxLength="2" />
+
+        <EditText
+            android:id="@+id/cardCvv"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/boxlike_effect"
+            android:gravity="center"
+            android:hint="CVV"
+            android:inputType="number"
+            android:maxLength="3" />
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/buttonDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_gravity="bottom"
+        android:textColor="@color/textColor"
+        android:background="@color/colorPrimary"
+        android:text="DONE" />
+
+</LinearLayout>

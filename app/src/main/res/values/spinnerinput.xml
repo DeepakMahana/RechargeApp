@@ -17,6 +17,16 @@
         <item>Jio</item>
     </string-array>
 
+    <string-array name="dthproviders">
+        <item>TataSky</item>
+        <item>Airtel Digital</item>
+        <item>Dish TV</item>
+        <item>Big TV</item>
+        <item>Sun Direct</item>
+        <item>Videocon DTH</item>
+        <item>Dordarshan Direct Plus</item>
+    </string-array>
+
     <string-array name="states">
         <item>Andhra Pradesh</item>
         <item>Assam</item>
