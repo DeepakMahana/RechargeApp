@@ -409,7 +409,9 @@ public class DbHandlersUsers {
 
 
     class DatabaseHelper extends SQLiteOpenHelper {
+
         Context context;
+
         private static final int DATABASE_VERSION = 1;
         private static final String DATABASE_NAME = "Users";
         private static final String TABLE_NAME = "Details";
