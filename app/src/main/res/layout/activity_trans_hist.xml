@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="pranav_wasnik.wipro.com.recharger.TransactionHistory">
+    tools:context="pooja_pawar.wipro.com.quadplay.TransactionHistory">
 
 
     <TextView
