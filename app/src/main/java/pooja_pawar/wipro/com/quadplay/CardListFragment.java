@@ -21,8 +21,6 @@ public class CardListFragment extends DialogFragment{
     private CardBeanAdapter adapter;
     private ArrayList<CardBean> dataList;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -45,14 +43,16 @@ public class CardListFragment extends DialogFragment{
             @Override
             public void OnTapView(long cno) {
                 Toast.makeText(getContext(), "You Selected " + cno, Toast.LENGTH_SHORT).show();
-                OnTapList ac = (OnTapList)getActivity();
+                OnTapList ac = (OnTapList)getContext();
                 ac.OnTapView(cno);
                 dismiss();
             }
         });
         rv.setHasFixedSize(true);
         rv.setLayoutManager(linearLayoutManager);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rv.setAdapter(adapter);
+
     }
 
 }

@@ -10,9 +10,9 @@
         <ImageView
             android:id="@+id/header_cover_image"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="115dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/batman" />
+            android:src="@drawable/bg1" />
 
         <ImageButton
             android:id="@+id/imgProfile"
@@ -30,9 +30,9 @@
         <RelativeLayout
             android:id="@+id/profile_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="125dp"
             android:layout_below="@+id/header_cover_image"
-            android:background="#9575CD"
+            android:background="@drawable/bg2"
             android:elevation="4dp"
             android:paddingBottom="24dp">
 
@@ -48,16 +48,6 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/user_profile_short_bio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/userNameProfile"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="12dp"
-                android:text="Checkout Your Details"
-                android:textColor="#fff"
-                android:textSize="14sp" />
         </RelativeLayout>
 
 

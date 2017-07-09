@@ -14,16 +14,12 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.List;
-
 public class RechargeMobile extends AppCompatActivity implements OnTapList{
 
     EditText MobileNo, Amount;
     Button buttonRecharge;
     Spinner spinnerCompany, spinnerState;
     RadioButton radioPrepaid, radioPostpaid;
-    OnTapList listener;
-    List<CardBean> values;
     long mobile;
     long cardno;
     String mode = "", provider = "", state = "", dateD, timeD;
@@ -45,8 +41,6 @@ public class RechargeMobile extends AppCompatActivity implements OnTapList{
         sessionManager = new SessionManager(this);
         mobile = sessionManager.getMobile();
 
-        System.out.println(mobile);
-
         // Check if Payment Card is Added by the User
         boolean res1 = db.BankDetailsCount();
         boolean res2 = db.CardDetailsUser(mobile);
@@ -60,23 +54,11 @@ public class RechargeMobile extends AppCompatActivity implements OnTapList{
 
             MobileNo = (EditText) findViewById(R.id.MobileNo);
             Amount = (EditText) findViewById(R.id.Amount);
-
             radioPrepaid = (RadioButton) findViewById(R.id.prepaidRadioButton);
             radioPostpaid = (RadioButton) findViewById(R.id.postpaidRadioButton);
 
-            //Getting the current date and time from TimeToDate Class,
-            db = new DbHandlersUsers(this);
-
-            values = db.getUserCards(mobile);
-
-            for(CardBean c : values){
-                System.out.println(c.getCardNo());
-                System.out.println(c.getBankName());
-                System.out.println(c.getBalance());
-            }
-
+            // Getting Date and Time
             dateObj = new TimeToDate(this);
-
             dateD = dateObj.getDate();
             timeD = dateObj.getTime();
 
@@ -137,25 +119,9 @@ public class RechargeMobile extends AppCompatActivity implements OnTapList{
                         final android.app.FragmentManager fm = getFragmentManager();
                         final CardListFragment cd = new CardListFragment();
                         cd.show(fm, "Card_List");
-                        // Convert cardN to Long
-
-
-                        // System.out.println(cardno);
-
-//                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-//
-//                        long id = db.addRecharge(mobile, rmobno, mode, am, provider, state, dateD, timeD, cardno);
-//
-//                        if (id == 1) {
-//                            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            startActivity(i);
-//                            finish();
-//                        }
+                        Toast.makeText(getApplicationContext(), "Select Your Payment Card", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
-
             });
         }
     }
@@ -211,22 +177,12 @@ public class RechargeMobile extends AppCompatActivity implements OnTapList{
         long rmobno = Long.parseLong(mobileS);
         int am = Integer.parseInt(amountS);
 
-        System.out.println(mobile);
-        System.out.println(rmobno);
-        System.out.println(mode);
-        System.out.println(am);
-        System.out.println(provider);
-        System.out.println(state);
-        System.out.println(dateD);
-        System.out.println(timeD);
-        System.out.println(cardno);
-
         long id = db.addRecharge(mobile, rmobno, mode, am, provider, state, dateD, timeD, cardno);
-        boolean res = db.updateBalance(cardno,am);
-        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+        long transID = db.addTrans(cardno,"Mobile",rmobno, am, mobile, dateD, timeD);
 
-        if (id != 0 && res == true) {
-            Toast.makeText(getApplicationContext(), "Recharge Done Successfully !!", Toast.LENGTH_SHORT).show();
+        if ((id != 0) && (transID != 0)) {
+            Toast.makeText(getApplicationContext(), "Mobile Recharge Done Successfully !!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(getApplicationContext(), MainActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
             finish();

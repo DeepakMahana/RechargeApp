@@ -15,7 +15,6 @@ import android.widget.Toast;
 
 public class RegisterUsers extends AppCompatActivity {
 
-
     EditText name, email, mobile, password, city;
     Button submit;
     String mobileST, emailS, passwordS, nameS, cityS, date, time;
@@ -26,7 +25,7 @@ public class RegisterUsers extends AppCompatActivity {
     long mobileS;
     TimeToDate dateObj;
     OtpSend otp;
-    final ProgressDialog mProgress = new ProgressDialog(this);
+    ProgressDialog mProgress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class RegisterUsers extends AppCompatActivity {
         setContentView(R.layout.reg_users);
 
         db = new DbHandlersUsers(this);
-
+        mProgress = new ProgressDialog(this);
         name = (EditText) findViewById(R.id.nameUser);
         email = (EditText) findViewById(R.id.emailUser);
         mobile = (EditText) findViewById(R.id.mobileUser);
@@ -48,10 +47,8 @@ public class RegisterUsers extends AppCompatActivity {
         date = dateObj.getDate();
         time = dateObj.getTime();
 
-
         sessionManager = new SessionManager(this);
         alertManager = new AlertDialogManager();
-
 
         mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgress.setTitle("Registering");
@@ -82,7 +79,7 @@ public class RegisterUsers extends AppCompatActivity {
 
                     mobileS = Long.parseLong(mobileST);
 
-                    if (db.statusOfUserTable() == false){
+                    if (db.statusOfUserTable() == false) {
                         mProgress.setTitle("Sending OTP");
                         boolean res = otp.sendSMS(mobileS);
                         mProgress.dismiss();
@@ -91,7 +88,9 @@ public class RegisterUsers extends AppCompatActivity {
                         } else {
                             alertManager.showAlertDialog(RegisterUsers.this, "Registration Failed", "Something Went Wrong ! OTP Not Sent", false);
                         }
-                    } else if (db.checkMobileExist(mobileS)) {
+                    } else
+
+                    if (db.checkMobileExist(mobileS)) {
                         mProgress.dismiss();
                         alertManager.showAlertDialog(RegisterUsers.this, "Registration Failed", "Mobile No Already Exists ! Try Another Mobile No", false);
                     } else {
@@ -175,4 +174,3 @@ public class RegisterUsers extends AppCompatActivity {
     }
 
 }
-

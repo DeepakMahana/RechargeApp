@@ -4,12 +4,24 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/txtDth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter DTH Details"
+        android:textSize="30dp"
+        android:textColor="#000000"
+        android:textAlignment="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="60dp" />
+
+    <TextView
         android:id="@+id/sectionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="DTH Number"
-        android:textSize="22sp"
-        android:layout_marginTop="15dp"
+        android:textSize="25dp"
+        android:layout_below="@+id/txtDth"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:textStyle="bold"/>
 
@@ -30,8 +42,9 @@
         android:id="@+id/serviceprovider"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="   Service Provider"
-        android:textSize="22sp"
+        android:text="Service Provider"
+        android:layout_marginLeft="15dp"
+        android:textSize="25dp"
         android:layout_below="@+id/dthNumber"
         android:textStyle="bold"/>
 
@@ -39,7 +52,7 @@
     <Spinner
         android:id="@+id/spinnerCompanyName"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_below="@id/dthNumber"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="15dp"
@@ -49,8 +62,9 @@
         android:id="@+id/dthamount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="   Amount"
-        android:textSize="22sp"
+        android:text="Amount"
+        android:layout_marginLeft="15dp"
+        android:textSize="25dp"
         android:layout_below="@+id/spinnerCompanyName"
         android:textStyle="bold"/>
 
@@ -59,8 +73,9 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
         android:paddingLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_margin="10dp"
         android:layout_below="@+id/dthamount"
         android:background="@drawable/boxlike_effect"
         android:inputType="number"/>
@@ -78,6 +93,13 @@
         android:textColor="@color/textColor"
         android:background="@color/colorPrimary"
         android:layout_centerHorizontal="true"/>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/flashlogo"
+        android:layout_below="@+id/buttonDone"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 

@@ -10,11 +10,10 @@
         android:id="@+id/TVHead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:layout_marginBottom="30dp"
-        android:textAlignment="center"
-        android:text="ENTER DETAILS TO RECHARGE"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:text="ENTER DETAILS"
         android:textSize="22sp"
         android:textStyle="bold" />
 
@@ -89,22 +88,23 @@
             android:text="@string/mobile_radio2"
             android:textSize="22sp" />
 
+
     </RadioGroup>
 
     <Spinner
         android:id="@+id/spinnerCompanyName"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="40dp"
         android:layout_below="@id/radioButtonGroup"
-        android:layout_marginLeft="15dp"
+        android:layout_gravity="center"
         android:background="@drawable/boxlike_effect"
         android:layout_weight="0.02" />
 
     <Spinner
         android:layout_height="40dp"
-        android:layout_width="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_width="200dp"
         android:id="@+id/spinnerStateName"
+        android:layout_gravity="center"
         android:layout_below="@id/radioButtonGroup"
         android:background="@drawable/boxlike_effect"
         android:layout_toRightOf="@id/spinnerCompanyName"/>

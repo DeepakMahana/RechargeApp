@@ -72,16 +72,6 @@ public class AddCard extends AppCompatActivity {
 
                     Intent i = new Intent(getApplicationContext(), MainActivity.class);
 
-                    //Inserting CARD DETAILS INTO DB
-                    System.out.println(card);
-                    System.out.println(Expiry);
-                    System.out.println(cardCvv);
-                    System.out.println(mobile);
-                    System.out.println(holderName);
-                    System.out.println(bankName);
-                    System.out.println(dateD);
-                    System.out.println(timeD);
-
                     long id = db.addBankDetails(card, Expiry, cardCvv, mobile, holderName, bankName, dateD, timeD);
 
                     if (id != 0) {

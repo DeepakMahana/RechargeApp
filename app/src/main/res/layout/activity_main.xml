@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg3"
+    android:background="@drawable/bg5"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 <LinearLayout
@@ -35,8 +35,9 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:textColor="#FFFFFF"
             android:text="Welcome Deepak"
-            android:textSize="30dp"
+            android:textSize="25dp"
             android:textAlignment="center" />
     </LinearLayout>
 
@@ -171,7 +172,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:id="@+id/db"
-            android:src="@drawable/db"
+            android:src="@drawable/subscriptions"
             android:scaleType="centerInside"
             android:background="#00000000"
             android:onClick="onButtonClicker"/>
@@ -196,7 +197,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Database"
+            android:text="Subscriptions"
             android:textSize="20dp"
             android:textAlignment="center"/>
 

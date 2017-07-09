@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
 
         switch (v.getId()) {
+
             case R.id.recharge:
                 intent = new Intent(this, RechargeMobile.class);
                 startActivity(intent);
@@ -82,9 +83,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.db:
-                intent = new Intent(this, ViewAllData.class);
+                intent = new Intent(this, TransHistory.class);
                 startActivity(intent);
                 break;
+
             default:
                 break;
         }

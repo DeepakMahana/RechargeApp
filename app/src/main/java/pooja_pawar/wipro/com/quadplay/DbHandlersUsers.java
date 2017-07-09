@@ -537,6 +537,65 @@ public class DbHandlersUsers {
         return null;
     }
 
+    /* Transactions Table */
+
+    long addTrans(long cardno, String serName, long serNo ,int amount, long userno, String date, String time) {
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(helper.TRANS_CARDNO, cardno);
+        values.put(helper.TRANS_SERNAME, serName);
+        values.put(helper.TRANS_SERNO, serNo);
+        values.put(helper.TRANS_AMOUNT,amount);
+        values.put(helper.TRANS_MOB_USERID, userno);
+        values.put(helper.TRANS_DATE, date);
+        values.put(helper.TRANS_TIME, time);
+
+        long id = 0;
+        try {
+            id = db.insert(helper.TABLE_TRANSACTIONS, null, values);
+            System.out.println("Transaction Added");
+        } catch (Exception e) {
+            System.out.println(""+e);
+        }
+        return id;
+    }
+
+    public ArrayList<TransBean> getTrans(long mobile) {
+
+        ArrayList<TransBean> cd = new ArrayList<>();
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        String[] columns = {helper.TRANS_ID,helper.TRANS_CARDNO,helper.TRANS_SERNAME,helper.TRANS_SERNO ,helper.TRANS_AMOUNT,helper.TRANS_DATE,helper.TRANS_TIME};
+        Cursor cursor = db.query(helper.TABLE_TRANSACTIONS, columns, helper.TRANS_MOB_USERID+"='"+mobile+"'",null ,null, null, helper.TRANS_ID + " DESC");
+//           String query = "SELECT id,cardno,bankname,balance FROM bankdetails WHERE userno = '" + mobile + "' ";
+//           Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToPosition(-1);
+        while(cursor.moveToNext()) {
+            int index1 = cursor.getColumnIndex(helper.TRANS_ID);
+            int index2 = cursor.getColumnIndex(helper.TRANS_CARDNO);
+            int index3 = cursor.getColumnIndex(helper.TRANS_SERNAME);
+            int index4 = cursor.getColumnIndex(helper.TRANS_SERNO);
+            int index5 = cursor.getColumnIndex(helper.TRANS_AMOUNT);
+            int index6 = cursor.getColumnIndex(helper.TRANS_DATE);
+            int index7 = cursor.getColumnIndex(helper.TRANS_TIME);
+
+            String s1 = cursor.getString(index1);
+            String s2 = cursor.getString(index2);
+            String s3 = cursor.getString(index3);
+            String s4 = cursor.getString(index4);
+            String s5 = cursor.getString(index5);
+            String s6 = cursor.getString(index6);
+            String s7 = cursor.getString(index7);
+
+            TransBean cb = new TransBean(Integer.parseInt(s1),Long.parseLong(s2),s3,Long.parseLong(s4),Integer.parseInt(s5),s6,s7);
+            cd.add(cb);
+
+        }
+        cursor.close();
+        return cd;
+    }
+
        /*
 
     public Cursor getAllUserImages(){
@@ -656,18 +715,41 @@ public class DbHandlersUsers {
     //BANK TABLE
     //Update the balance after the recharge is done
 
-    public boolean updateBalance(long cardNumber , int amount){
-        SQLiteDatabase db=helper.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(helper.BANK_BALANCE,amount);
-        String []updated={""+cardNumber};
-        long id = db.update(helper.TABLE_BANKDETAILS,cv,helper.CARD_NO+" =? ",updated);
-        if(id<0){
-            return FALSE;  // Balance Not Updated
-        }else{
-            return TRUE;   // Balance Updated
-        }
-    }
+//    public boolean updateBalance(long cardNumber , int amount){
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//        ContentValues cv = new ContentValues();
+//        cv.put(helper.BANK_BALANCE, amount);
+//        String []updated={""+cardNumber};
+//        long id = db.update(helper.TABLE_BANKDETAILS,cv,helper.CARD_NO+" =? ",updated);
+//        if(id<0){
+//            return FALSE;  // Balance Not Updated
+//        }else{
+//            return TRUE;   // Balance Updated
+//        }
+//    }
+//
+//    public String getbalance(long mobile) {
+//
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//        String[] columns = {helper.BANK_BALANCE};
+//        Cursor cursor = db.query(helper.TABLE_BANKDETAILS, columns, helper.BANK_MOB_USERID+"='"+mobile+"'",null ,null, null, null, null);
+//
+//        int index = cursor.getColumnIndex(helper.BANK_BALANCE);
+//
+//        String values = new String();
+//        cursor.moveToPosition(-1);
+//
+//        while (cursor.moveToNext()) {
+//            String s1 = cursor.getString(index);
+//
+//                values = s1;
+//                cursor.close();
+//                return values;
+//            }
+//        cursor.close();
+//        return values;
+//    }
+
 
     //BANK TABLE
     //getting the required column names from the BANK Customer table
@@ -904,18 +986,15 @@ public class DbHandlersUsers {
         private static final String BANK_DATE = "date";
         private static final String BANK_TIME = "time";
 
-//        /*Details about Bank Details tracking Table*/
-//        private static final String TRANS_ID = "id";
-//        private static final String TRANS_CARDNO ="cardno";
-//        private static final String TRANS_CARDNO ="cardno";
-//        private static final String TRANS_AMOUNT ="amount";
-//        private static final String CARD_CVV ="cvv";
-//        private static final String BANK_MOB_USERID = "userno";
-//        private static final String CARD_USERNAME = "cardname";
-//        private static final String BANK_NAME = "bankname";
-//        private static final String BANK_BALANCE = "balance";
-//        private static final String BANK_DATE = "date";
-//        private static final String BANK_TIME = "time";
+        /*Details about Transaction Details tracking Table*/
+        private static final String TRANS_ID = "id";
+        private static final String TRANS_CARDNO ="cardno";
+        private static final String TRANS_SERNAME ="name";
+        private static final String TRANS_SERNO ="no";
+        private static final String TRANS_AMOUNT ="amount";
+        private static final String TRANS_MOB_USERID = "userno";
+        private static final String TRANS_DATE = "date";
+        private static final String TRANS_TIME = "time";
 
         /*Details about User Images Table*/
         private static final String IMAGE_ID ="id";
@@ -983,6 +1062,17 @@ public class DbHandlersUsers {
                 + BANK_DATE + " VARCHAR(20),"
                 + BANK_TIME + " VARCHAR(20) ); " ;
 
+        private static final String CREATE_TABLE_TRANS = "CREATE TABLE "
+                + TABLE_TRANSACTIONS + "("
+                + TRANS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , "
+                + TRANS_CARDNO + " VARCHAR(30) , "
+                + TRANS_SERNAME + " VARCHAR(30), "
+                + TRANS_SERNO + " VARCHAR(30), "
+                + TRANS_AMOUNT+ " INTEGER, "
+                + TRANS_MOB_USERID + " INTEGER, "
+                + TRANS_DATE + " VARCHAR(20),"
+                + TRANS_TIME + " VARCHAR(20) ); " ;
+
         private static final String CREATE_TABLE_IMAGES = "CREATE TABLE "
                 + TABLE_USERIMAGES + "("
                 + IMAGE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -1001,14 +1091,13 @@ public class DbHandlersUsers {
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             try {
                 sqLiteDatabase.execSQL(CREATE_TABLE_USERS);
-                System.out.println("User Created");
                 sqLiteDatabase.execSQL(CREATE_TABLE_RECHARGE);
-                System.out.println(CREATE_TABLE_RECHARGE + "Bank Created");
                 sqLiteDatabase.execSQL(CREATE_TABLE_DTH);
                 sqLiteDatabase.execSQL(CREATE_TABLE_LANDLINE);
                 sqLiteDatabase.execSQL(CREATE_TABLE_BANKDETAILS);
-                System.out.println(CREATE_TABLE_BANKDETAILS + "Bank Created");
+                sqLiteDatabase.execSQL(CREATE_TABLE_TRANS);
                 sqLiteDatabase.execSQL(CREATE_TABLE_IMAGES);
+
             } catch (SQLException e) {
                 System.out.println(""+e);
             }
@@ -1022,6 +1111,7 @@ public class DbHandlersUsers {
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_DTH);
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_LANDLINE);
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_BANKDETAILS);
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_TRANSACTIONS);
                     sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USERIMAGES);
                     onCreate(sqLiteDatabase);
                 } catch (SQLException e) {

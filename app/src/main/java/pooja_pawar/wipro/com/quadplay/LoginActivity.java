@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import static pooja_pawar.wipro.com.quadplay.R.id.txtUsername;
+
 
 public class LoginActivity extends Activity {
 
@@ -27,7 +27,8 @@ public class LoginActivity extends Activity {
         session = new SessionManager(getApplicationContext());
         handler = new DbHandlersUsers(this);
 
-        txtMobile= (EditText) findViewById(txtUsername);
+
+        txtMobile= (EditText) findViewById(R.id.txtUsername);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
         btnLogin = (Button) findViewById(R.id.btnLogin);
 

@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">QuadPlay</string>
-
+    <string name="app_name">FlashCharge</string>
     <string name="mobile_text1">Enter Mobile No</string>
     <string name="mobile_radio1">Prepaid</string>
     <string name="mobile_radio2">Postpaid</string>
@@ -8,5 +7,4 @@
     <string name="mobile2_amount">Enter Amount</string>
     <string name="mobile2_payButton">PAY</string>
     <string name="card_select">Select Your Debit/Credit Card</string>
-    <string name="Rs">\u20B9</string>
 </resources>
