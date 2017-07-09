@@ -9,130 +9,85 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button mobileButton,landlineButton,dataButton,transactionButton,bankaccountButton,dthButton;
-    Button addUsers,testing,account,addOtp;
     ImageView batman;
     TextView username;
-
+    long mobileSession;
     SessionManager session;
     CoordinatorLayout cl;
     DbHandlersUsers db;
-
-    long mobileSession;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        session=new SessionManager(this);
+        session = new SessionManager(this);
+
         session.checkLogin();
-        db=new DbHandlersUsers(this);
 
-        cl=(CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-        batman=(ImageView)findViewById(R.id.imageBatman);
-        username=(TextView)findViewById(R.id.userName);
+        db = new DbHandlersUsers(this);
 
-        mobileSession=session.getMobile();//Getting mobile no of user which was saved in shared preferences during registration or login
-        String []values=db.getData(mobileSession);
+        cl = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        batman = (ImageView)findViewById(R.id.imgProfile);
+        username = (TextView)findViewById(R.id.userName);
 
+        mobileSession = session.getMobile();
+
+        //Getting mobile no of user and Image which was saved in shared preferences during registration or login
+        String[] values = db.getData(mobileSession);
         username.setText("Welcome "+values[1]);
 
-        batman.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar snackbar=Snackbar.make(cl,"It's not who I am underneath, but what I do that defines me.",Snackbar.LENGTH_LONG);
-                View sv=snackbar.getView();
-                sv.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-                snackbar.setActionTextColor(getResources().getColor(R.color.textColor));
-                snackbar.show();
-            }
-        });
+//        if(/* Check whether Images Table exists*/){
+//        batman.setImageBitmap(bitmapImage);
+//        byte[] image = db.retreiveImageFromDB(mobileSession);
+//        Bitmap bitmapImage = BitmapFactory.decodeByteArray(image, 0, image.length);
+//        }
 
-        //Unique identifier is sent in the Bundle because MobilePaymentS1 activity will be opened from two different activities,
-        //To distinguish between them two, we are sending unique ID i.e. the name of Activity from which it is opened or accessed.
-        mobileButton=(Button)findViewById(R.id.mobilepayment);
-        mobileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(getApplicationContext(),MobilePaymentS1.class);
-                Bundle args=new Bundle();
-                args.putString("uniqueID","From MainActivity");
-                i.putExtras(args);
-                startActivity(i);
-            }
-        });
+    }
 
-        landlineButton=(Button)findViewById(R.id.landlinepayment);
-        landlineButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(getApplicationContext(),LandlinePaymentS1.class);
-                startActivity(i);
-            }
-        });
+    public void onButtonClicker(View v)
+    {
+        Intent intent;
 
-        dataButton=(Button)findViewById(R.id.datacardpayment);
-        dataButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(getApplicationContext(),DatacardPaymentS1.class);
-                startActivity(i);
-            }
-        });
+        switch (v.getId()) {
+            case R.id.recharge:
+                intent = new Intent(this, RechargeMobile.class);
+                startActivity(intent);
+                break;
 
-        dthButton=(Button)findViewById(R.id.dthcardpayment);
-        dthButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(getApplicationContext(),Dth.class);
-                startActivity(i);
-            }
-        });
+            case R.id.dth:
+                intent = new Intent(this, Dth.class);
+                startActivity(intent);
+                break;
 
-        bankaccountButton=(Button)findViewById(R.id.bankaccount);
-        bankaccountButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(getApplicationContext(),BankAccount.class);
-                startActivity(i);
-            }
-        });
+            case R.id.landline:
+                intent = new Intent(this, LandlinePayListView.class);
+                startActivity(intent);
+                break;
 
-        transactionButton=(Button)findViewById(R.id.transactions);
-        transactionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(getApplicationContext(),TransactionHistory.class);
-                startActivity(i);
-            }
-        });
+            case R.id.addCard:
+                intent = new Intent(this, AddCard.class);
+                startActivity(intent);
+                break;
 
-        account=(Button)findViewById(R.id.account);
-        account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(getApplicationContext(),Account.class);
-                startActivity(i);
-            }
-        });
+            case R.id.profile:
+                intent = new Intent(this, Account.class);
+                startActivity(intent);
+                break;
 
-        addUsers=(Button)findViewById(R.id.addUsers);
-        addUsers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent(getApplicationContext(),AddUsers.class);
-                startActivity(i);
-            }
-        });
-
+            case R.id.db:
+                intent = new Intent(this, ViewAllData.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 
     //Code for Overflow menu,
@@ -146,8 +101,8 @@ public class MainActivity extends AppCompatActivity {
                 session.logoutUser();
 
                 //Code for deleting all the transactions
-                db.deleteAllData();
-                Intent i=new Intent(this,LoginActivity.class);
+                // db.deleteAllData();
+                Intent i = new Intent(this,LoginActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
                 finish();
@@ -162,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.logout,menu);
         return true;
     }
-
 
     //Code for clicking two times on HomeScreen to exit,
     boolean doubleBackToExitPressedOnce = false;

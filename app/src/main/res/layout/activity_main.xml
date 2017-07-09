@@ -2,140 +2,207 @@
 <android.support.design.widget.CoordinatorLayout android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg3"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    >
-    
+
+<LinearLayout
+    android:layout_width="300dp"
+    android:layout_height="500dp"
+    android:layout_marginTop="30dp"
+    android:layout_marginBottom="30dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginLeft="30dp"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/proImage"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:src="@drawable/face"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Welcome Deepak"
+            android:textSize="30dp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
 
-            <ImageView
-                android:id="@+id/imageBatman"
-                android:layout_width="80dp"
-                android:layout_height="120dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/batman" />
+        <ImageButton
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/recharge"
+            android:src="@drawable/recharge"
+            android:scaleType="centerInside"
+            android:background="#00000000"
+            android:onClick="onButtonClicker"
+            />
 
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
-                android:text="Rishabh"
-                android:textSize="30sp"
-                android:textStyle="bold|italic" />
-        </LinearLayout>
+        <ImageButton
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/dth"
+            android:src="@drawable/dth"
+            android:scaleType="centerInside"
+            android:background="#00000000"
+            android:onClick="onButtonClicker"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#000000" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="3">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
 
-            <Button
-                android:id="@+id/mobilepayment"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/mobilep" />
-
-            <Button
-                android:id="@+id/landlinepayment"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/landlinep" />
-
-            <Button
-                android:id="@+id/datacardpayment"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/datacardp" />
-
-            <Button
-                android:id="@+id/dthcardpayment"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/dthp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
-
-            <Button
-                android:id="@+id/bankaccount"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
-                android:background="@drawable/bankaccountp"
-                android:textSize="35sp" />
-
-
-
-            <Button
-                android:id="@+id/transactions"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
-                android:background="@drawable/transactionp"
-                android:textSize="35sp" />
-
-            <Button
-                android:id="@+id/account"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_margin="10dp"
-                android:background="@drawable/accountp"
-                android:textSize="35sp" />
-
-        </LinearLayout>
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:layout_weight="1"
+           android:text="Recharge"
+           android:textSize="20dp"
+           android:textAlignment="center"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="#000000" />
-
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:gravity="center">
+            android:layout_weight="1"
+            android:text="DTH"
+            android:textSize="20dp"
+            android:textAlignment="center"/>
 
-            <Button
-                android:id="@+id/addUsers"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/datap"
-                android:textSize="35sp" />
-        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+
+        <ImageButton
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/landline"
+            android:src="@drawable/landline"
+            android:scaleType="centerInside"
+            android:background="#00000000"
+            android:onClick="onButtonClicker"/>
+
+        <ImageButton
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/addCard"
+            android:src="@drawable/addcard"
+            android:scaleType="centerInside"
+            android:background="#00000000"
+            android:onClick="onButtonClicker"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Landlne"
+            android:textSize="20dp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Card"
+            android:textSize="20dp"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+
+        <ImageButton
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/profile"
+            android:src="@drawable/profile"
+            android:scaleType="centerInside"
+            android:background="#00000000"
+            android:onClick="onButtonClicker"/>
+
+        <ImageButton
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/db"
+            android:src="@drawable/db"
+            android:scaleType="centerInside"
+            android:background="#00000000"
+            android:onClick="onButtonClicker"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:orientation="horizontal"
+        android:layout_weight="1" >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Profile"
+            android:textSize="20dp"
+            android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="Database"
+            android:textSize="20dp"
+            android:textAlignment="center"/>
+
+    </LinearLayout>
+
+    </LinearLayout>
+
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

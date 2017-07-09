@@ -1,10 +1,11 @@
+
 package pooja_pawar.wipro.com.quadplay;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
-public class LandlinePaymentS1 extends AppCompatActivity {
+public class LandlinePayListView extends AppCompatActivity {
 
     ListView lv;
 
@@ -14,10 +15,11 @@ public class LandlinePaymentS1 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_land_pay1);
+        setContentView(R.layout.activity_landline_list);
 
         //Initializing the list view and passing images[] and provider array to adapter for implementing listview,
-        lv=(ListView)findViewById(R.id.listviewProvider);
+        lv = (ListView)findViewById(R.id.listviewProvider);
         lv.setAdapter(new ListAdapter(this,providers,images));
     }
 }
+

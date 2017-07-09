@@ -11,12 +11,11 @@ import static java.lang.Boolean.TRUE;
 
 public class UpdateBalance extends AppCompatActivity {
 
-    EditText number,balance;
+    EditText number , amount;
     Button update;
-
     long cardNumber;
-    double cardBalance;
-    String num,bal;
+    int cardAmount;
+    String num , amt ;
 
     DbHandlersUsers db;
 
@@ -26,7 +25,7 @@ public class UpdateBalance extends AppCompatActivity {
         setContentView(R.layout.activity_update_balance);
 
         number=(EditText)findViewById(R.id.number);
-        balance=(EditText)findViewById(R.id.balance);
+        amount=(EditText)findViewById(R.id.balance);
         update=(Button)findViewById(R.id.submit);
 
         db=new DbHandlersUsers(this);
@@ -36,19 +35,20 @@ public class UpdateBalance extends AppCompatActivity {
         update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                num=number.getText().toString();
-                bal=balance.getText().toString();
+                num = number.getText().toString();
+                amt = amount.getText().toString();
 
-                if(num.equals("") || bal.equals("")){
+                if(num.equals("") || amt.equals("")){
                     Toast.makeText(getApplicationContext(),"Enter All The Details",Toast.LENGTH_SHORT).show();
-                }else{
-                    cardNumber=Long.parseLong(num);
-                    cardBalance=Double.parseDouble(bal);
+                }
+                else
+                    {
+                    cardNumber = Long.parseLong(num);
+                    cardAmount = Integer.parseInt(amt);
 
                     //Updating the balance
-                    boolean flag=db.updateBalance(cardNumber,cardBalance);
-
-                    if(flag==TRUE){
+                    boolean flag = db.updateBalance(cardNumber, cardAmount);
+                    if(flag == TRUE){
                         Toast.makeText(getApplicationContext(),"Balance Updated",Toast.LENGTH_SHORT).show();
                     }else{
                         Toast.makeText(getApplicationContext(),"Something went wrong",Toast.LENGTH_SHORT).show();

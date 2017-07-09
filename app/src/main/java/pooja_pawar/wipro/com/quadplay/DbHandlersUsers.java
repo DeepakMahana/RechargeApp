@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 
@@ -25,15 +27,16 @@ public class DbHandlersUsers {
     //USER TABLE
     //Adding User to the USERS table
 
-    long addUser(long mobile, String email, String password, String name, String city) {
+    long addUser(long mobile, String email, String password, String name, String city, String date, String time) {
         SQLiteDatabase db = helper.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(helper.MOBILE, mobile);
         values.put(helper.EMAIL, email);
         values.put(helper.PASSWORD, password);
         values.put(helper.NAME, name);
         values.put(helper.CITY, city);
+        values.put(helper.REG_DATE, date);
+        values.put(helper.REG_TIME, time);
 
         long id = 0;
         try {
@@ -49,32 +52,38 @@ public class DbHandlersUsers {
 
     public String[] getData(long mobile) {
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {helper.MOBILE,helper.EMAIL, helper.NAME, helper.CITY};
-        Cursor cursor = db.query(helper.TABLE_USERS, columns, helper.MOBILE+"='"+mobile+"'", null, null, null, null);
+        String[] columns = {helper.MOBILE, helper.EMAIL, helper.NAME, helper.CITY, helper.REG_DATE, helper.REG_TIME};
+        Cursor cursor = db.query(helper.TABLE_USERS, columns, helper.MOBILE + "='" + mobile + "'", null, null, null, null, null);
 
         int index1 = cursor.getColumnIndex(helper.MOBILE);
         int index2 = cursor.getColumnIndex(helper.EMAIL);
         int index3 = cursor.getColumnIndex(helper.NAME);
         int index4 = cursor.getColumnIndex(helper.CITY);
+        int index5 = cursor.getColumnIndex(helper.RE_TIME);
+        int index6 = cursor.getColumnIndex(helper.RE_DATE);
 
-
-        String []values=new String[3];
+        String[] values = new String[5];
         while (cursor.moveToNext()) {
             long s1 = cursor.getLong(index1);
             String s2 = cursor.getString(index2);
             String s3 = cursor.getString(index3);
             String s4 = cursor.getString(index4);
+            String s5 = cursor.getString(index5);
+            String s6 = cursor.getString(index6);
 
-            if(s1==mobile){
-                values[0]=s2;
-                values[1]=s3;
-                values[2]=s4;
-                return  values;
+            if (s1 == mobile) {
+                values[0] = s2;
+                values[1] = s3;
+                values[2] = s4;
+                values[3] = s5;
+                values[4] = s6;
+                return values;
             }
         }
-
+        cursor.close();
         return values;
     }
+
 
 
     //USERS TABLE
@@ -115,6 +124,7 @@ public class DbHandlersUsers {
 
         while (cursor.moveToNext()) {
             long s = cursor.getLong(index);
+            System.out.println(s);
             if (mobile == s) {
                 return FALSE;
             }
@@ -135,7 +145,7 @@ public class DbHandlersUsers {
     //USERS TABLE
     //getting the cursor and sending all the columns
     public Cursor getAllColumnsUsers(){
-        SQLiteDatabase db=helper.getWritableDatabase();
+        SQLiteDatabase db = helper.getWritableDatabase();
 
         String[] columns={helper.MOBILE,helper.EMAIL,helper.PASSWORD,helper.NAME,helper.CITY};
 
@@ -143,19 +153,36 @@ public class DbHandlersUsers {
         return cursor;
     }
 
+    // Before Registering check for blank db
+    public boolean statusOfUserTable(){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String count = "SELECT count(*) FROM users";
+        Cursor mcursor = db.rawQuery(count, null);
+        mcursor.moveToFirst();
+        int icount = mcursor.getInt(0);
+        if(icount > 0)                  // There is Data hence check for already existing MobNo
+            return true;
+        else
+            return false;
+    }
 
     //Recharge TABLE
     //Adding Recharges Made By Users
 
-    long addRecharge(long usermobile, long remobile, int amount, String operator, String state) {
+    long addRecharge(long usermobile, long remobile, String mode, int amount, String operator, String state, String date, String time, long cardno) {
+
         SQLiteDatabase db = helper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(helper.USER_MOBILE_ID, usermobile);
         values.put(helper.RECHARGE_MOBILE_NO, remobile);
+        values.put(helper.RECHARGE_MODE, mode);
         values.put(helper.AMOUNT, amount);
         values.put(helper.OPERATOR, operator);
         values.put(helper.STATE, state);
+        values.put(helper.RE_DATE, date);
+        values.put(helper.RE_TIME, time);
+        values.put(helper.RE_CARD, cardno);
 
         long id = 0;
         try {
@@ -171,41 +198,51 @@ public class DbHandlersUsers {
 
     public String[] getRechargeData(long mobile) {
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {helper.USER_MOBILE_ID,helper.RECHARGE_MOBILE_NO, helper.AMOUNT, helper.OPERATOR,helper.STATE };
+        String[] columns = {helper.USER_MOBILE_ID,helper.RECHARGE_MOBILE_NO,helper.RECHARGE_MODE, helper.AMOUNT, helper.OPERATOR,helper.STATE, helper.RE_DATE, helper.RE_TIME, helper.RE_CARD };
         Cursor cursor = db.query(helper.TABLE_RECHARGE, columns, helper.USER_MOBILE_ID+"='"+mobile+"'", null, null, null, null, null);
 
         int index1 = cursor.getColumnIndex(helper.USER_MOBILE_ID);
         int index2 = cursor.getColumnIndex(helper.RECHARGE_MOBILE_NO);
-        int index3 = cursor.getColumnIndex(helper.AMOUNT);
-        int index4 = cursor.getColumnIndex(helper.OPERATOR);
-        int index5 = cursor.getColumnIndex(helper.STATE);
+        int index3 = cursor.getColumnIndex(helper.RECHARGE_MODE);
+        int index4 = cursor.getColumnIndex(helper.AMOUNT);
+        int index5 = cursor.getColumnIndex(helper.OPERATOR);
+        int index6 = cursor.getColumnIndex(helper.STATE);
+        int index7 = cursor.getColumnIndex(helper.RE_DATE);
+        int index8 = cursor.getColumnIndex(helper.RE_TIME);
+        int index9 = cursor.getColumnIndex(helper.RE_CARD);
 
 
-        String []values=new String[4];
+        String []values = new String[8];
         while (cursor.moveToNext()) {
             long s1 = cursor.getLong(index1);
             String s2 = cursor.getString(index2);
             String s3 = cursor.getString(index3);
             String s4 = cursor.getString(index4);
             String s5 = cursor.getString(index5);
+            String s6 = cursor.getString(index6);
+            String s7 = cursor.getString(index7);
+            String s8 = cursor.getString(index8);
+            String s9 = cursor.getString(index9);
 
             if(s1==mobile){
                 values[0]=s2;
                 values[1]=s3;
                 values[2]=s4;
                 values[3]=s5;
+                values[4]=s6;
+                values[5]=s7;
+                values[6]=s8;
+                values[7]=s9;
                 return  values;
             }
         }
-
         return values;
     }
-
 
     /* DTH Table - Adding DTH */
     //Adding Recharges Made By Users
 
-    long addDth(long userno, long dthno, int rdth, String dthprovider) {
+    long addDth(long userno, long dthno, int rdth, String dthprovider, String date, String time, long cardno) {
         SQLiteDatabase db = helper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -213,7 +250,9 @@ public class DbHandlersUsers {
         values.put(helper.DTH_NO, dthno);
         values.put(helper.DTH_RECHARGE_AMOUNT, rdth);
         values.put(helper.DTH_PROVIDER, dthprovider);
-
+        values.put(helper.DTH_DATE, date);
+        values.put(helper.DTH_TIME, time);
+        values.put(helper.DTH_CARD, cardno);
 
         long id = 0;
         try {
@@ -229,27 +268,34 @@ public class DbHandlersUsers {
 
     public String[] getDTHData(long mobile) {
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {helper.DTH_MOB_USERID,helper.DTH_NO, helper.DTH_RECHARGE_AMOUNT, helper.DTH_PROVIDER };
+        String[] columns = {helper.DTH_MOB_USERID,helper.DTH_NO, helper.DTH_RECHARGE_AMOUNT, helper.DTH_PROVIDER, helper.DTH_DATE, helper.DTH_TIME, helper.DTH_CARD };
         Cursor cursor = db.query(helper.TABLE_DTH, columns, helper.DTH_MOB_USERID+"='"+mobile+"'",null ,null, null, null);
 
         int index1 = cursor.getColumnIndex(helper.DTH_MOB_USERID);
         int index2 = cursor.getColumnIndex(helper.DTH_NO);
         int index3 = cursor.getColumnIndex(helper.DTH_RECHARGE_AMOUNT);
         int index4 = cursor.getColumnIndex(helper.DTH_PROVIDER);
+        int index5 = cursor.getColumnIndex(helper.DTH_DATE);
+        int index6 = cursor.getColumnIndex(helper.DTH_TIME);
+        int index7 = cursor.getColumnIndex(helper.DTH_CARD);
 
-
-
-        String []values=new String[3];
+        String []values=new String[6];
         while (cursor.moveToNext()) {
             long s1 = cursor.getLong(index1);
             String s2 = cursor.getString(index2);
             String s3 = cursor.getString(index3);
             String s4 = cursor.getString(index4);
+            String s5 = cursor.getString(index5);
+            String s6 = cursor.getString(index6);
+            String s7 = cursor.getString(index7);
 
             if(s1==mobile){
                 values[0]=s2;
                 values[1]=s3;
                 values[2]=s4;
+                values[3]=s5;
+                values[4]=s6;
+                values[5]=s7;
                 return  values;
             }
         }
@@ -260,7 +306,7 @@ public class DbHandlersUsers {
     /* Landline Table - Adding Landline */
     //Adding Recharges Made By Users
 
-    long addLandline(long userno, long landno, int rland, String landprovider) {
+    long addLandline(long userno, long landno, int rland, String landprovider, String date, String time, long cardno) {
         SQLiteDatabase db = helper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -268,7 +314,9 @@ public class DbHandlersUsers {
         values.put(helper.LAND_NO, landno);
         values.put(helper.LAND_RECHARGE_AMOUNT, rland);
         values.put(helper.LAND_PROVIDER, landprovider);
-
+        values.put(helper.LAND_DATE, date);
+        values.put(helper.LAND_TIME, time);
+        values.put(helper.LAND_CARD, cardno);
 
         long id = 0;
         try {
@@ -283,25 +331,33 @@ public class DbHandlersUsers {
 
     public String[] getLandlineData(long mobile) {
         SQLiteDatabase db = helper.getWritableDatabase();
-        String[] columns = {helper.LAND_MOB_USERID,helper.LAND_NO, helper.LAND_RECHARGE_AMOUNT, helper.LAND_PROVIDER };
-        Cursor cursor = db.query(helper.TABLE_LANDLINE, columns, helper.LAND_MOB_USERID+"='"+mobile+"'",null ,null, null, null);
+        String[] columns = {helper.LAND_MOB_USERID,helper.LAND_NO, helper.LAND_RECHARGE_AMOUNT, helper.LAND_PROVIDER, helper.LAND_DATE, helper.LAND_TIME, helper.LAND_CARD };
+        Cursor cursor = db.query(helper.TABLE_LANDLINE, columns, helper.LAND_MOB_USERID+"='"+mobile+"'",null ,null, null, null, null);
 
         int index1 = cursor.getColumnIndex(helper.LAND_MOB_USERID);
         int index2 = cursor.getColumnIndex(helper.LAND_NO);
         int index3 = cursor.getColumnIndex(helper.LAND_RECHARGE_AMOUNT);
         int index4 = cursor.getColumnIndex(helper.LAND_PROVIDER);
+        int index5 = cursor.getColumnIndex(helper.LAND_DATE);
+        int index6 = cursor.getColumnIndex(helper.LAND_TIME);
+        int index7 = cursor.getColumnIndex(helper.LAND_CARD);
 
-        String []values = new String[3];
+        String []values = new String[6];
         while (cursor.moveToNext()) {
             long s1 = cursor.getLong(index1);
             String s2 = cursor.getString(index2);
             String s3 = cursor.getString(index3);
             String s4 = cursor.getString(index4);
-
+            String s5 = cursor.getString(index5);
+            String s6 = cursor.getString(index6);
+            String s7 = cursor.getString(index7);
             if(s1==mobile){
                 values[0]=s2;
                 values[1]=s3;
                 values[2]=s4;
+                values[3]=s5;
+                values[4]=s6;
+                values[5]=s7;
                 return  values;
             }
         }
@@ -311,17 +367,17 @@ public class DbHandlersUsers {
 
 /* BankDetails Table - Adding BankDetails */
 
-    long addBankDetails(long cardno,int expiry, int cvv, long userno, String cardname, String bankname) {
+    long addBankDetails(long cardno, String expiry, String cvv, long userno, String cUsername, String bankname, String date, String time) {
         SQLiteDatabase db = helper.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(helper.CARD_NO, cardno);
         values.put(helper.CARD_EXP, expiry);
         values.put(helper.CARD_CVV, cvv);
-        values.put(helper.BANK_MOB_USERID,userno);
-        values.put(helper.CARD_USERNAME,cardname);
-        values.put(helper.BANK_NAME,bankname);
-
+        values.put(helper.BANK_MOB_USERID, userno);
+        values.put(helper.CARD_USERNAME, cUsername);
+        values.put(helper.BANK_NAME, bankname);
+        values.put(helper.BANK_DATE, date);
+        values.put(helper.BANK_TIME, time);
 
         long id = 0;
         try {
@@ -338,7 +394,7 @@ public class DbHandlersUsers {
 
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {helper.CARD_NO,helper.CARD_EXP,helper.CARD_CVV, helper.BANK_MOB_USERID, helper.CARD_USERNAME, helper.BANK_NAME };
+        String[] columns = {helper.CARD_NO,helper.CARD_EXP,helper.CARD_CVV, helper.BANK_MOB_USERID, helper.CARD_USERNAME, helper.BANK_NAME, helper.BANK_BALANCE, helper.BANK_DATE, helper.BANK_TIME };
         Cursor cursor = db.query(helper.TABLE_BANKDETAILS, columns, helper.CARD_NO+"='"+cardno+"'",null ,null, null, null, null);
 
         int index1 = cursor.getColumnIndex(helper.CARD_NO);
@@ -347,8 +403,11 @@ public class DbHandlersUsers {
         int index4 = cursor.getColumnIndex(helper.BANK_MOB_USERID);
         int index5 = cursor.getColumnIndex(helper.CARD_USERNAME);
         int index6 = cursor.getColumnIndex(helper.BANK_NAME);
+        int index7 = cursor.getColumnIndex(helper.BANK_BALANCE);
+        int index8 = cursor.getColumnIndex(helper.BANK_DATE);
+        int index9 = cursor.getColumnIndex(helper.BANK_TIME);
 
-        String []values = new String[5];
+        String []values = new String[8];
         while (cursor.moveToNext()) {
             long s1 = cursor.getLong(index1);
             String s2 = cursor.getString(index2);
@@ -356,11 +415,19 @@ public class DbHandlersUsers {
             String s4 = cursor.getString(index4);
             String s5 = cursor.getString(index5);
             String s6 = cursor.getString(index6);
+            String s7 = cursor.getString(index7);
+            String s8 = cursor.getString(index8);
+            String s9 = cursor.getString(index9);
 
-            if(s1==cardno){
+            if(s1 == cardno){
                 values[0]=s2;
                 values[1]=s3;
                 values[2]=s4;
+                values[3]=s5;
+                values[4]=s6;
+                values[5]=s7;
+                values[6]=s8;
+                values[7]=s9;
                 return  values;
             }
         }
@@ -368,8 +435,121 @@ public class DbHandlersUsers {
         return values;
     }
 
+    // check whether Bank table contains data or not
+    public boolean BankDetailsCount(){
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String count = "SELECT count(*) FROM bankdetails";
+        Cursor mcursor = db.rawQuery(count, null);
+        int icount = mcursor.getCount();
+        mcursor.close();
+        if(icount > 0){                  // There is Data hence check for already existing MobNo
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 
-    /*
+    // Before performing any transactions check whether User added any card or not
+    public boolean CardDetailsUser(long mobile){
+        System.out.print("CardDetailsUser Called");
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String count = "SELECT * FROM bankdetails WHERE userno = '" + mobile + "' ";
+        Cursor cursor = db.rawQuery(count, null);
+        int icount = cursor.getCount();
+        cursor.close();
+        if(icount > 0){      // There is Data hence User Already Added Card
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    // Get All the Cards that a User has saved
+    public ArrayList<CardBean> getUserCards(long mobile) {
+
+        ArrayList<CardBean> cd = new ArrayList<>();
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+            String[] columns = {helper.BANK_ID,helper.CARD_NO,helper.BANK_NAME, helper.BANK_BALANCE };
+            Cursor cursor = db.query(helper.TABLE_BANKDETAILS, columns, helper.BANK_MOB_USERID+"='"+mobile+"'",null ,null, null, null, null);
+//           String query = "SELECT id,cardno,bankname,balance FROM bankdetails WHERE userno = '" + mobile + "' ";
+//           Cursor cursor = db.rawQuery(query, null);
+        cursor.moveToPosition(-1);
+        while(cursor.moveToNext()) {
+            int index = cursor.getColumnIndex(helper.BANK_ID);
+            int index1 = cursor.getColumnIndex(helper.CARD_NO);
+            int index2 = cursor.getColumnIndex(helper.BANK_NAME);
+            int index3 = cursor.getColumnIndex(helper.BANK_BALANCE);
+
+            String s1 = cursor.getString(index);
+            String s2 = cursor.getString(index1);
+            String s3 = cursor.getString(index2);
+            String s4 = cursor.getString(index3);
+
+            CardBean cb = new CardBean(Integer.parseInt(s1),Long.parseLong(s2),s3,Integer.parseInt(s4));
+            cd.add(cb);
+
+        }
+        cursor.close();
+        return cd;
+    }
+
+
+    // Insert the User Images
+
+    long insertImage(long mobile, byte[] imageBytes) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(helper.IMG_USER_MOBILE, mobile);
+        values.put(helper.IMAGE, imageBytes);
+
+        long id = 0;
+        try {
+            id = db.insert(helper.TABLE_USERIMAGES, null, values);
+        } catch (Exception e) {
+            System.out.println(""+e);
+        }
+        return id;
+    }
+
+    // Get the image from Database
+
+    public byte[] retreiveImageFromDB(long mobile) {
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        String[] columns = {helper.IMG_USER_MOBILE, helper.IMAGE};
+        Cursor cursor = db.query(helper.TABLE_USERIMAGES, columns, helper.IMG_USER_MOBILE+"='"+mobile+"'",null,null,null,null);
+
+        int index1 = cursor.getColumnIndex(helper.IMG_USER_MOBILE);
+        int index2 = cursor.getColumnIndex(helper.IMAGE);
+
+        while (cursor.moveToNext()) {
+            long s1 = cursor.getLong(index1);
+            byte[] s2 = cursor.getBlob(index2);
+
+            if (s1 == mobile) {
+                return s2;
+            }
+        }
+        cursor.close();
+        return null;
+    }
+
+       /*
+
+    public Cursor getAllUserImages(){
+
+        SQLiteDatabase db = helper.getWritableDatabase();
+
+        String[] columns = {helper.IMAGE};
+        Cursor cursor = db.query(helper.TABLE_USERIMAGES,columns,null,null,null,null,null);
+        return cursor;
+    }
+
+
+
 
     //Adding bank data of the Users. Since we dont have access to the bank's original data, we are creating our own data
     //BANK TABLE
@@ -450,15 +630,17 @@ public class DbHandlersUsers {
         return balance;
     }
 
+    */
+
     //BANK TABLE
     //Check if the newly added card already exist
-    public boolean checkDuplicateCard(long cardNumber){
+    public boolean checkDuplicateCard (long cardNumber){
         SQLiteDatabase db=helper.getWritableDatabase();
 
-        String []columns={helper.CARD_NUMBER};
-        Cursor cursor=db.query(helper.TABLE_CUSTOMERS,columns,helper.CARD_NUMBER+"='"+cardNumber+"'",null,null,null,null);
+        String []columns = {helper.CARD_NO};
+        Cursor cursor=db.query(helper.TABLE_BANKDETAILS,columns,helper.CARD_NO+"='"+cardNumber+"'",null,null,null,null);
 
-        int index1=cursor.getColumnIndex(helper.CARD_NUMBER);
+        int index1=cursor.getColumnIndex(helper.CARD_NO);
 
         while(cursor.moveToNext()){
             long num=cursor.getLong(index1);
@@ -470,21 +652,20 @@ public class DbHandlersUsers {
         return TRUE;
     }
 
+
     //BANK TABLE
     //Update the balance after the recharge is done
-    public boolean updateBalance(long cardNumber,double amount){
+
+    public boolean updateBalance(long cardNumber , int amount){
         SQLiteDatabase db=helper.getWritableDatabase();
-
-        ContentValues cv=new ContentValues();
-        cv.put(helper.BALANCE,amount);
-
+        ContentValues cv = new ContentValues();
+        cv.put(helper.BANK_BALANCE,amount);
         String []updated={""+cardNumber};
-
-        long id=db.update(helper.TABLE_CUSTOMERS,cv,helper.CARD_NUMBER+" =? ",updated);
+        long id = db.update(helper.TABLE_BANKDETAILS,cv,helper.CARD_NO+" =? ",updated);
         if(id<0){
-            return FALSE;
+            return FALSE;  // Balance Not Updated
         }else{
-            return TRUE;
+            return TRUE;   // Balance Updated
         }
     }
 
@@ -493,10 +674,11 @@ public class DbHandlersUsers {
     public String[] getColumnBank(){
         //Order will depend on the order of how you are displaying values in your list item
         // i.e. the values in String []to array in the listview activity
-        String []a={helper.MOBILE1,helper.BALANCE,helper.CARD_NUMBER,helper.EXPIRY,helper.CVV};
+        String[] a={helper.BANK_MOB_USERID,helper.CARD_NO,helper.CARD_USERNAME,helper.BANK_BALANCE,helper.CARD_EXP};
         return a;
     }
 
+    /*
     //BANK TABLE
     //Getting the columns for the Accounts Activity
     public String[] getColumnBank1(){
@@ -504,17 +686,25 @@ public class DbHandlersUsers {
         return a;
     }
 
+    */
     //BANK TABLE
     //getting all the columns
     public Cursor getAllColumnsBank(){
-        SQLiteDatabase db=helper.getWritableDatabase();
 
-        String []columns={helper.CARD_NUMBER,helper.BALANCE,helper.MOBILE1,helper.EXPIRY,helper.CVV};
-
-        Cursor cursor=db.query(helper.TABLE_CUSTOMERS,columns,null,null,null,null,null);
+        SQLiteDatabase db = helper.getWritableDatabase();
+        String[] columns={helper.CARD_NO,helper.CARD_USERNAME,helper.CARD_EXP,helper.BANK_MOB_USERID,helper.BANK_BALANCE};
+        Cursor cursor=db.query(helper.TABLE_BANKDETAILS,columns,null,null,null,null,null);
         return cursor;
     }
 
+//    public Cursor getAllTransaction(){
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//        String[] columns = {}
+//
+//        return cursor;
+//    }
+
+    /*
 
     //BANK TABLE
     //Getting the cursor for only the match mobile number
@@ -657,64 +847,106 @@ public class DbHandlersUsers {
         private static final String TABLE_DTH = "dth";
         private static final String TABLE_LANDLINE = "landline";
         private static final String TABLE_BANKDETAILS = "bankdetails";
+        private static final String TABLE_USERIMAGES = "images";
+        private static final String TABLE_TRANSACTIONS = "transactions";
 
         /*Details about Users table columns*/
-        private static final String MOBILE = "_id";
+        private static final String USER_ID = "id";
+        private static final String MOBILE = "mobno";
         private static final String EMAIL = "email";
         private static final String PASSWORD = "password";
         private static final String NAME = "name";
         private static final String CITY = "city";
+        private static final String REG_DATE = "date";
+        private static final String REG_TIME = "time";
 
         /*Details about Recharge Table columns*/
-        private static final String RID = "_id";
+        private static final String RID = "id";
         private static final String USER_MOBILE_ID = "userno";
         private static final String RECHARGE_MOBILE_NO = "rno";
+        private static final String RECHARGE_MODE = "mode";
         private static final String AMOUNT = "ramount";
         private static final String OPERATOR = "operator";
         private static final String STATE = "state";
+        private static final String RE_DATE = "date";
+        private static final String RE_TIME = "time";
+        private static final String RE_CARD = "cardno";
 
         /*Details about DTH Details tracking Table*/
-        private static final String DTHID = "_id";
+        private static final String DTHID = "id";
         private static final String DTH_MOB_USERID = "userno";
         private static final String DTH_NO = "dthno";
         private static final String DTH_RECHARGE_AMOUNT = "rdth";
         private static final String DTH_PROVIDER = "dthprovider";
+        private static final String DTH_DATE = "date";
+        private static final String DTH_TIME = "time";
+        private static final String DTH_CARD = "cardno";
 
         /*Details about Landline Details tracking Table*/
-        private static final String LAND_ID = "_id";
+        private static final String LAND_ID = "id";
         private static final String LAND_MOB_USERID = "userno";
         private static final String LAND_NO = "landno";
         private static final String LAND_RECHARGE_AMOUNT = "rland";
         private static final String LAND_PROVIDER = "landprovider";
+        private static final String LAND_DATE = "date";
+        private static final String LAND_TIME = "time";
+        private static final String LAND_CARD = "cardno";
 
         /*Details about Bank Details tracking Table*/
-        private static final String CARD_NO ="_id";//the name is kept as id to satisfy the listview cursor adapter
+        private static final String BANK_ID = "id";
+        private static final String CARD_NO ="cardno";
         private static final String CARD_EXP ="expiry";
         private static final String CARD_CVV ="cvv";
         private static final String BANK_MOB_USERID = "userno";
         private static final String CARD_USERNAME = "cardname";
         private static final String BANK_NAME = "bankname";
+        private static final String BANK_BALANCE = "balance";
+        private static final String BANK_DATE = "date";
+        private static final String BANK_TIME = "time";
 
+//        /*Details about Bank Details tracking Table*/
+//        private static final String TRANS_ID = "id";
+//        private static final String TRANS_CARDNO ="cardno";
+//        private static final String TRANS_CARDNO ="cardno";
+//        private static final String TRANS_AMOUNT ="amount";
+//        private static final String CARD_CVV ="cvv";
+//        private static final String BANK_MOB_USERID = "userno";
+//        private static final String CARD_USERNAME = "cardname";
+//        private static final String BANK_NAME = "bankname";
+//        private static final String BANK_BALANCE = "balance";
+//        private static final String BANK_DATE = "date";
+//        private static final String BANK_TIME = "time";
+
+        /*Details about User Images Table*/
+        private static final String IMAGE_ID ="id";
+        private static final String IMG_USER_MOBILE ="imobile";
+        private static final String IMAGE ="image";
 
         /* Create Tables */
 
         private static final String CREATE_TABLE_USERS = "CREATE TABLE "
                 + TABLE_USERS + "("
-                + MOBILE + " INTEGER PRIMARY KEY, "
+                + USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , "
+                + MOBILE + " INTEGER, "
                 + EMAIL + " VARCHAR(30), "
                 + PASSWORD + " VARCHAR(30), "
                 + NAME + " VARCHAR(40), "
-                + CITY + " VARCHAR(40)); ";
+                + CITY + " VARCHAR(40),"
+                + REG_DATE + " VARCHAR(20),"
+                + REG_TIME + " VARCHAR(20)); ";
 
         private static final String CREATE_TABLE_RECHARGE = "CREATE TABLE "
                 + TABLE_RECHARGE + "("
                 + RID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + USER_MOBILE_ID + " INTEGER, "
                 + RECHARGE_MOBILE_NO + " INTEGER, "
+                + RECHARGE_MODE + " VARCHAR(20), "
                 + AMOUNT + " INTEGER , "
                 + OPERATOR + " VARCHAR(20), "
                 + STATE + " VARCHAR(20), "
-                + " FOREIGN KEY (" +USER_MOBILE_ID+ ") REFERENCES "+TABLE_USERS+"("+MOBILE+"));";
+                + RE_DATE + " VARCHAR(20),"
+                + RE_TIME + " VARCHAR(20),"
+                + RE_CARD + " VARCHAR(30) ); ";
 
         private static final String CREATE_TABLE_DTH = "CREATE TABLE "
                 + TABLE_DTH + "("
@@ -723,7 +955,9 @@ public class DbHandlersUsers {
                 + DTH_NO + " VARCHAR(30), "
                 + DTH_RECHARGE_AMOUNT + " INTEGER, "
                 + DTH_PROVIDER + " VARCHAR(30) , "
-                + " FOREIGN KEY (" +DTH_MOB_USERID+ ") REFERENCES "+TABLE_USERS+"("+MOBILE+"));";
+                + DTH_DATE + " VARCHAR(20),"
+                + DTH_TIME + " VARCHAR(20),"
+                + DTH_CARD + " VARCHAR(30) ); " ;
 
         private static final String CREATE_TABLE_LANDLINE = "CREATE TABLE "
                 + TABLE_LANDLINE + "("
@@ -732,17 +966,28 @@ public class DbHandlersUsers {
                 + LAND_NO + " INTEGER, "
                 + LAND_RECHARGE_AMOUNT + " INTEGER, "
                 + LAND_PROVIDER + " VARCHAR(30) , "
-                + " FOREIGN KEY (" +LAND_MOB_USERID+ ") REFERENCES "+TABLE_USERS+"("+MOBILE+"));";
+                + LAND_DATE + " VARCHAR(20),"
+                + LAND_TIME + " VARCHAR(20),"
+                + LAND_CARD + " VARCHAR(30) ); " ;
 
         private static final String CREATE_TABLE_BANKDETAILS = "CREATE TABLE "
                 + TABLE_BANKDETAILS + "("
-                + CARD_NO + " INTEGER PRIMARY KEY, "
+                + BANK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , "
+                + CARD_NO + " VARCHAR(30) , "
                 + CARD_EXP + " INTEGER, "
                 + CARD_CVV+ " INTEGER, "
                 + BANK_MOB_USERID + " INTEGER, "
                 + BANK_NAME + " VARCHAR(50) , "
                 + CARD_USERNAME + " VARCHAR(50), "
-                + " FOREIGN KEY (" +BANK_MOB_USERID+ ") REFERENCES "+TABLE_USERS+"("+MOBILE+"));";
+                + BANK_BALANCE + " INTEGER DEFAULT 1000, "
+                + BANK_DATE + " VARCHAR(20),"
+                + BANK_TIME + " VARCHAR(20) ); " ;
+
+        private static final String CREATE_TABLE_IMAGES = "CREATE TABLE "
+                + TABLE_USERIMAGES + "("
+                + IMAGE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + IMG_USER_MOBILE + " INTEGER, "
+                + IMAGE + " BLOB NOT NULL ); " ;
 
 
         /* DATABASE HELPER */
@@ -756,10 +1001,14 @@ public class DbHandlersUsers {
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             try {
                 sqLiteDatabase.execSQL(CREATE_TABLE_USERS);
+                System.out.println("User Created");
                 sqLiteDatabase.execSQL(CREATE_TABLE_RECHARGE);
+                System.out.println(CREATE_TABLE_RECHARGE + "Bank Created");
                 sqLiteDatabase.execSQL(CREATE_TABLE_DTH);
                 sqLiteDatabase.execSQL(CREATE_TABLE_LANDLINE);
                 sqLiteDatabase.execSQL(CREATE_TABLE_BANKDETAILS);
+                System.out.println(CREATE_TABLE_BANKDETAILS + "Bank Created");
+                sqLiteDatabase.execSQL(CREATE_TABLE_IMAGES);
             } catch (SQLException e) {
                 System.out.println(""+e);
             }
@@ -767,19 +1016,19 @@ public class DbHandlersUsers {
 
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-            try {
-                sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
-                sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_RECHARGE);
-                sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_DTH);
-                sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_LANDLINE);
-                sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_BANKDETAILS);
-                onCreate(sqLiteDatabase);
-            } catch (SQLException e) {
-                Toast.makeText(context, "" + e, Toast.LENGTH_LONG).show();
-            }
+                try {
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_RECHARGE);
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_DTH);
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_LANDLINE);
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_BANKDETAILS);
+                    sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_USERIMAGES);
+                    onCreate(sqLiteDatabase);
+                } catch (SQLException e) {
+                    Toast.makeText(context, "" + e, Toast.LENGTH_LONG).show();
+                }
         }
 
     }
-
 
 }

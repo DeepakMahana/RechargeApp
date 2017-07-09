@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="pranav_wasnik.wipro.com.recharger.LandlinePaymentS2">
+    tools:context="pooja_pawar.wipro.com.quadplay.LandlinePayment">
 
     <TextView
         android:id="@+id/sectionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:text="Just one last step for giving details"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -21,7 +21,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="60dp">
 
         <include layout="@layout/custom_list_item"/>
 
@@ -32,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/boxlike_effect"
         android:inputType="number"
         android:maxLength="11"
@@ -43,16 +46,18 @@
         android:id="@+id/intruction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="5dp"
-        android:text="Please enter 11 digit vali telephone number with STD code along with Prefix 0. (e.g. 08041149278)" />
+        android:text="Please enter 11 digit valid telephone number with STD code along with Prefix 0. (e.g. 08041149278)" />
 
     <EditText
         android:id="@+id/paymentAmount"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/boxlike_effect"
         android:maxLength="4"
         android:inputType="number"
@@ -64,11 +69,12 @@
         android:id="@+id/buttonContinue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="25dp"
+        android:layout_margin="60dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="bottom"
         android:textColor="@color/textColor"
         android:background="@color/colorPrimary"
-        android:text="CONTINUE"
+        android:text="PAY"
         android:textSize="22sp"/>
 
 

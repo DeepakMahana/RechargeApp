@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="pranav_wasnik.wipro.com.recharger.Testing">
+    tools:context="pooja_pawar.wipro.com.quadplay.Testing">
 
     <EditText
         android:id="@+id/intTesting"

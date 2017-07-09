@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="20dp"
-    tools:context="pranav_wasnik.wipro.com.recharger.AllUsersData">
+    tools:context="pooja_pawar.wipro.com.quadplay.AllUsersData">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="344dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
             android:textStyle="bold" />
 
         <ListView
-            android:id="@+id/listviewBanl"
+            android:id="@+id/listviewBank"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:layout_width="match_parent"

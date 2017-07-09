@@ -1,3 +1,4 @@
+
 package pooja_pawar.wipro.com.quadplay;
 
 import android.app.Activity;
@@ -6,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import static pooja_pawar.wipro.com.quadplay.R.id.txtUsername;
 
 public class LoginActivity extends Activity {
@@ -25,31 +25,28 @@ public class LoginActivity extends Activity {
 
         // Session Manager
         session = new SessionManager(getApplicationContext());
+        handler = new DbHandlersUsers(this);
 
         txtMobile= (EditText) findViewById(txtUsername);
         txtPassword = (EditText) findViewById(R.id.txtPassword);
-
-        //Database initialization and adding values from Users.xml file to the database
-        handler=new DbHandlersUsers(this);
-        AddingValues add=new AddingValues(getApplication(),handler);
-        String a=add.addAllUsers();
-        String b=add.addBankDetails();
-
         btnLogin = (Button) findViewById(R.id.btnLogin);
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
+
                 String mobile = txtMobile.getText().toString();
                 String password = txtPassword.getText().toString();
 
                 if (mobile.trim().length() > 0 && password.trim().length() > 0) {
-                    long a=Long.parseLong(mobile);
-                    String b=handler.checkMobile(a);
+
+                    long a = Long.parseLong(mobile);
+                    String b = handler.checkMobile(a);
 
                     if(password.equals(b)) {
 
-                        session.createLoginSession(a);//Change to shared preferences is made after the user is logged in,
+                        session.createLoginSession(a); //Change to shared preferences is made after the user is logged in,
 
                         Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -68,6 +65,7 @@ public class LoginActivity extends Activity {
         });
 
         btnRegister=(Button)findViewById(R.id.btnRegister);
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,3 +82,4 @@ public class LoginActivity extends Activity {
         finish();
     }
 }
+

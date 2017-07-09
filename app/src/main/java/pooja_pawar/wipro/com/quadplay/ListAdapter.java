@@ -1,3 +1,4 @@
+
 package pooja_pawar.wipro.com.quadplay;
 
 import android.content.Context;
@@ -70,7 +71,8 @@ public class ListAdapter extends BaseAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(context,LandlinePaymentS2.class);
+
+                Intent i=new Intent(context,LandlinePayment.class);
                 Bundle bundle=new Bundle();
                 bundle.putInt("Image",images[position]);
                 bundle.putString("provider",provider[position]);
@@ -81,3 +83,4 @@ public class ListAdapter extends BaseAdapter {
         return convertView;
     }
 }
+

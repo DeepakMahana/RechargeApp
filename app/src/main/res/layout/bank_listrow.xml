@@ -5,6 +5,7 @@
     android:background="@color/colorPrimary"
     android:layout_marginLeft="10dp"
     android:layout_marginTop="10dp"
+    android:layout_marginRight="10dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,14 +14,14 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:text="Mobile-"
+            android:text="Mobile - "
             android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
-            android:id="@+id/listNumber"
+            android:id="@+id/listMobUserID"
             android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,34 +39,12 @@
             android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Balance-"
+            android:text="Card Number - "
             android:textSize="18sp" />
 
         <TextView
             android:textColor="@color/textColor"
-            android:id="@+id/listBalance"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="7609876543"
-            android:textSize="18sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:textColor="@color/textColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Card Number-"
-            android:textSize="18sp" />
-
-        <TextView
-            android:textColor="@color/textColor"
-            android:id="@+id/listCardNumber"
+            android:id="@+id/listCardNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
@@ -74,6 +53,28 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/textColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Holder's Name -"
+            android:textSize="18sp" />
+
+        <TextView
+            android:textColor="@color/textColor"
+            android:id="@+id/listCardUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Deepak"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_marginLeft="10dp"
@@ -84,7 +85,30 @@
             android:textColor="@color/textColor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Expiry-"
+            android:text="Balance - Rs. "
+            android:textSize="18sp" />
+
+        <TextView
+            android:textColor="@color/textColor"
+            android:id="@+id/listBalance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "760"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="@color/textColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expiry - "
             android:textSize="18sp" />
 
         <TextView
@@ -93,31 +117,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="7609876543"
+            android:text="12/22"
             android:textSize="18sp" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginLeft="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:textColor="@color/textColor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CVV-"
-            android:textSize="18sp" />
-
-        <TextView
-            android:textColor="@color/textColor"
-            android:id="@+id/listCVV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="7609876543"
-            android:textSize="18sp" />
-
-    </LinearLayout>
 </LinearLayout>

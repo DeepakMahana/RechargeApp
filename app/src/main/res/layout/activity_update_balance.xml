@@ -5,24 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="pranav_wasnik.wipro.com.recharger.UpdateBalance">
+    tools:context="pooja_pawar.wipro.com.quadplay.UpdateBalance">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:text="UPDATE YOUR BALANCE:"
+        android:layout_marginTop="10dp"
+        android:text="UPDATE YOUR BALANCE"
         android:textStyle="bold"
         android:layout_gravity="center"
-        android:textSize="25sp" />
+        android:textSize="25dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:text="Debit Card:"
+        android:layout_marginTop="15dp"
+        android:text="Enter Card No"
         android:textSize="22sp" />
 
     <EditText
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="Updated Balance:"
+        android:text="Enter Amount"
         android:textSize="22sp" />
 
     <EditText
@@ -68,9 +68,9 @@
         android:layout_margin="20dp"
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
-        android:text="Update"
+        android:text="Update Balance"
         android:textColor="@color/textColor"
-        android:textSize="22sp" />
+        android:textSize="20dp" />
 
 
 </LinearLayout>

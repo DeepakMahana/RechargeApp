@@ -3,11 +3,11 @@
     package="pooja_pawar.wipro.com.quadplay">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
-    <uses-permission android:name="android.permission.RECEIVE_SMS"/>
-    <uses-permission android:name="android.permission.READ_SMS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -24,24 +24,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MobilePaymentS1" />
-        <activity android:name=".MobilePaymentS2" />
-        <activity android:name=".CardPayment" />
-        <activity android:name=".LandlinePaymentS1" />
-        <activity android:name=".LandlinePaymentS2" />
-        <activity android:name=".DatacardPaymentS1" />
-        <activity android:name=".BankAccount" />
+        <activity android:name=".RechargeMobile" />
+        <activity android:name=".AddCard" />
+        <activity android:name=".LandlinePayListView" />
+        <activity android:name=".LandlinePayment" />
         <activity android:name=".Dth" />
-        <activity android:name=".TransactionHistory" />
         <activity android:name=".RegisterUsers" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".Testing" />
-        <activity android:name=".AddUsers" />
+        <activity android:name=".ViewAllData" />
         <activity android:name=".AllUsersData" />
         <activity android:name=".AllBankData" />
-        <activity android:name=".AddNewcard" />
         <activity android:name=".Account" />
         <activity android:name=".UpdateBalance" />
+        <activity android:name=".CardList"></activity>
     </application>
 
 </manifest>
