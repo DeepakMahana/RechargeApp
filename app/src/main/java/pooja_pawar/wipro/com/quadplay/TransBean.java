@@ -9,15 +9,26 @@ public class TransBean {
     private int amount;
     private String date;
     private String time;
+    private int balance;
 
-    public TransBean(int id,long CardNo, String serName, long serNum, int amount, String date, String time ){
+    public TransBean(int id,long CardNo, String serName, long serNum, int amount,int balance , String date, String time){
         this.id = id;
         this.CardNo = CardNo;
         this.SerName = serName;
         this.SerNum = serNum;
         this.amount = amount;
+        this.balance = balance;
         this.date = date;
         this.time = time;
+
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
     }
 
     public int getId() {

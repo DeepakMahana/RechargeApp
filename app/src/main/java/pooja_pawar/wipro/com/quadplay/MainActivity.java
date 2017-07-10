@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -95,20 +94,27 @@ public class MainActivity extends AppCompatActivity {
     //Code for Overflow menu,
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()){
-            case R.id.hello:
-                Toast.makeText(this,"Work Harder And It Will",Toast.LENGTH_SHORT).show();
+            case R.id.updateBalance:
+
+                Intent in = new Intent(this, UpdateBalance.class);
+                in.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(in);
+                finish();
                 return true;
+
             case R.id.logout:
                 session.logoutUser();
                 
                 //Code for deleting all the transactions
                 // db.deleteAllData();
-                Intent i = new Intent(this,LoginActivity.class);
+                Intent i = new Intent(this, LoginActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
                 finish();
                 return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -541,14 +541,16 @@ public class DbHandlersUsers {
 
     /* Transactions Table */
 
-    long addTrans(long cardno, String serName, long serNo ,int amount, long userno, String date, String time) {
+    long addTrans(long cardno, String serName, long serNo ,int amount,int balance, long userno, String date, String time) {
 
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = new ContentValues();
+
         values.put(helper.TRANS_CARDNO, cardno);
         values.put(helper.TRANS_SERNAME, serName);
         values.put(helper.TRANS_SERNO, serNo);
         values.put(helper.TRANS_AMOUNT,amount);
+        values.put(helper.TRANS_BALANCE,balance);
         values.put(helper.TRANS_MOB_USERID, userno);
         values.put(helper.TRANS_DATE, date);
         values.put(helper.TRANS_TIME, time);
@@ -556,7 +558,6 @@ public class DbHandlersUsers {
         long id = 0;
         try {
             id = db.insert(helper.TABLE_TRANSACTIONS, null, values);
-            System.out.println("Transaction Added");
         } catch (Exception e) {
             System.out.println(""+e);
         }
@@ -568,7 +569,7 @@ public class DbHandlersUsers {
         ArrayList<TransBean> cd = new ArrayList<>();
         SQLiteDatabase db = helper.getWritableDatabase();
 
-        String[] columns = {helper.TRANS_ID,helper.TRANS_CARDNO,helper.TRANS_SERNAME,helper.TRANS_SERNO ,helper.TRANS_AMOUNT,helper.TRANS_DATE,helper.TRANS_TIME};
+        String[] columns = {helper.TRANS_ID,helper.TRANS_CARDNO,helper.TRANS_SERNAME,helper.TRANS_SERNO ,helper.TRANS_AMOUNT,helper.TRANS_BALANCE,helper.TRANS_DATE,helper.TRANS_TIME};
         Cursor cursor = db.query(helper.TABLE_TRANSACTIONS, columns, helper.TRANS_MOB_USERID+"='"+mobile+"'",null ,null, null, helper.TRANS_ID + " DESC");
         cursor.moveToPosition(-1);
         while(cursor.moveToNext()) {
@@ -577,8 +578,9 @@ public class DbHandlersUsers {
             int index3 = cursor.getColumnIndex(helper.TRANS_SERNAME);
             int index4 = cursor.getColumnIndex(helper.TRANS_SERNO);
             int index5 = cursor.getColumnIndex(helper.TRANS_AMOUNT);
-            int index6 = cursor.getColumnIndex(helper.TRANS_DATE);
-            int index7 = cursor.getColumnIndex(helper.TRANS_TIME);
+            int index6 = cursor.getColumnIndex(helper.TRANS_BALANCE);
+            int index7 = cursor.getColumnIndex(helper.TRANS_DATE);
+            int index8 = cursor.getColumnIndex(helper.TRANS_TIME);
 
             String s1 = cursor.getString(index1);
             String s2 = cursor.getString(index2);
@@ -587,8 +589,9 @@ public class DbHandlersUsers {
             String s5 = cursor.getString(index5);
             String s6 = cursor.getString(index6);
             String s7 = cursor.getString(index7);
+            String s8 = cursor.getString(index8);
 
-            TransBean cb = new TransBean(Integer.parseInt(s1),Long.parseLong(s2),s3,Long.parseLong(s4),Integer.parseInt(s5),s6,s7);
+            TransBean cb = new TransBean(Integer.parseInt(s1),Long.parseLong(s2),s3,Long.parseLong(s4),Integer.parseInt(s5),Integer.parseInt(s6),s7,s8);
             cd.add(cb);
 
         }
@@ -1003,6 +1006,7 @@ public class DbHandlersUsers {
         private static final String TRANS_SERNAME ="name";
         private static final String TRANS_SERNO ="no";
         private static final String TRANS_AMOUNT ="amount";
+        private static final String TRANS_BALANCE ="balance";
         private static final String TRANS_MOB_USERID = "userno";
         private static final String TRANS_DATE = "date";
         private static final String TRANS_TIME = "time";
@@ -1080,6 +1084,7 @@ public class DbHandlersUsers {
                 + TRANS_SERNAME + " VARCHAR(30), "
                 + TRANS_SERNO + " VARCHAR(30), "
                 + TRANS_AMOUNT+ " INTEGER, "
+                + TRANS_BALANCE+ " INTEGER, "
                 + TRANS_MOB_USERID + " INTEGER, "
                 + TRANS_DATE + " VARCHAR(20),"
                 + TRANS_TIME + " VARCHAR(20) ); " ;

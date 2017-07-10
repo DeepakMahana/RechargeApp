@@ -185,8 +185,9 @@ public class RechargeMobile extends AppCompatActivity implements OnTapList{
         else {
 
             long id = db.addRecharge(mobile, rmobno, mode, am, provider, state, dateD, timeD, cardno);
-            long transID = db.addTrans(cardno, "Mobile", rmobno, am, mobile, dateD, timeD);
             boolean res = db.updateBalance(cardno, balance - am);
+            long transID = db.addTrans(cardno, "Mobile", rmobno, am, balance - am ,mobile, dateD, timeD);
+
 
             if ((id != 0) && (transID != 0) && (res == true)) {
 

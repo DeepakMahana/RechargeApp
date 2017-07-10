@@ -142,8 +142,8 @@ public class LandlinePayment extends AppCompatActivity implements OnTapList {
         else {
 
             long id = db.addLandline(userMobile, number, am, b, dateD, timeD, cardno);
-            long transID = db.addTrans(cardno, "LandLine", number, am, userMobile, dateD, timeD);
             boolean res = db.updateBalance(cardno, balance - am);
+            long transID = db.addTrans(cardno, "LandLine", number, am, balance - am , userMobile, dateD, timeD);
 
             if ((id != 0) && (transID != 0) && (res == true)) {
 

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <item android:id="@+id/hello"
+    <item android:id="@+id/updateBalance"
         android:orderInCategory="1"
         app:showAsAction="never"
-        android:title="Magic Button"
+        android:title="Update Balance"
         />
 
     <item android:id="@+id/logout"

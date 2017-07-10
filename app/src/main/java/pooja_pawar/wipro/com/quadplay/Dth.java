@@ -149,8 +149,8 @@ public class Dth extends AppCompatActivity implements OnTapList {
         else {
 
             long id = db.addDth(mobile, dthNo, amount, provider, dateD, timeD, cardno);
-            long transID = db.addTrans(cardno, "DTH", dthNo, amount, mobile, dateD, timeD);
             boolean res = db.updateBalance(cardno, balance - amount);
+            long transID = db.addTrans(cardno, "DTH", dthNo, amount, balance - amount ,mobile, dateD, timeD);
 
             if ((id != 0) && (transID != 0) && (res == true)) {
 

@@ -15,15 +15,19 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
     private Context c;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView subsNo,type,cardNo,amountPaid,date;
+
+        public TextView subsNo,type,cardNo,amountPaid,date,balance;
 
         public MyViewHolder(View view) {
             super(view);
+
             subsNo = (TextView) view.findViewById(R.id.subsNo);
             type = (TextView) view.findViewById(R.id.subsType);
             cardNo = (TextView) view.findViewById(R.id.subsCardNo);
             amountPaid = (TextView) view.findViewById(R.id.subsAmount);
+            balance = (TextView)view.findViewById(R.id.bankBalance);
             date = (TextView) view.findViewById(R.id.subsDate);
+
 
         }
     }
@@ -47,6 +51,7 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
         holder.type.setText("Type - " + tb.getSerName());
         holder.cardNo.setText("Card No - " + tb.getCardNo());
         holder.amountPaid.setText("Amount Paid - Rs." + tb.getAmount());
+        holder.balance.setText("Balance - Rs." + tb.getBalance());
         holder.date.setText("Date - " + tb.getDate());
 
     }

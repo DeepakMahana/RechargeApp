@@ -33,6 +33,7 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".Account" />
         <activity android:name=".TransHistory" />
+        <activity android:name=".UpdateBalance"/>
     </application>
 
 </manifest>
