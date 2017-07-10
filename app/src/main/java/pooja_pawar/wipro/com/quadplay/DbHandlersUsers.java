@@ -121,15 +121,17 @@ public class DbHandlersUsers {
         Cursor cursor = db.query(helper.TABLE_USERS, column, helper.MOBILE + "='" + mobile + "'", null, null, null, null);
 
         int index = cursor.getColumnIndex(helper.MOBILE);
-
+        cursor.moveToPosition(-1);
         while (cursor.moveToNext()) {
             long s = cursor.getLong(index);
             System.out.println(s);
             if (mobile == s) {
-                return FALSE;
+                cursor.close();
+                return TRUE;            // mobile Exists
             }
         }
-        return TRUE;
+        cursor.close();
+        return FALSE;               // mobile Not Exists
     }
 
     //USERS TABLE
@@ -154,17 +156,17 @@ public class DbHandlersUsers {
     }
 
     // Before Registering check for blank db
-    public boolean statusOfUserTable(){
-        SQLiteDatabase db = helper.getWritableDatabase();
-        String count = "SELECT count(*) FROM users";
-        Cursor mcursor = db.rawQuery(count, null);
-        mcursor.moveToFirst();
-        int icount = mcursor.getInt(0);
-        if(icount > 0)                  // There is Data hence check for already existing MobNo
-            return true;
-        else
-            return false;
-    }
+//    public boolean statusOfUserTable(){
+//        SQLiteDatabase db = helper.getWritableDatabase();
+//        String count = "SELECT count(*) FROM users";
+//        Cursor mcursor = db.rawQuery(count, null);
+//        mcursor.moveToFirst();
+//        int icount = mcursor.getInt(0);
+//        if(icount > 0)                  // There is Data hence check for already existing MobNo
+//            return true;
+//        else
+//            return false;
+//    }
 
     //Recharge TABLE
     //Adding Recharges Made By Users

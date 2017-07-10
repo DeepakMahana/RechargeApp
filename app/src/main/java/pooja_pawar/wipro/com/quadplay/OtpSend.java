@@ -42,17 +42,18 @@ public class OtpSend {
         rno = Integer.parseInt(new String(RandomOtp()));
 
         System.out.println(rno);
+        System.out.println(mobileno);
 
         //Your authentication key
-        String authkey = "164554AXmG0t105962913f";
+        String authkey = "163728AzL4L4F5595b4811";
         //Multiple mobiles numbers separated by comma
         String mobiles = new Long(mobileno).toString();;
         //Sender ID,While using route4 sender id should be 6 characters long.
-        String senderId = "611332";
+        String senderId = "rchapp";
         //Your message to send, Add URL encoding here.
         String message = "Verify Your Mobile No For RechargeApp By this OTP " + rno;
         //define route
-        String route = "default";
+        String route = "4";
 
         URLConnection myURLConnection = null;
         URL myURL = null;

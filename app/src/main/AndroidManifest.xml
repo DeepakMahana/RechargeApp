@@ -13,7 +13,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/flashlogo"
+        android:icon="@drawable/flashl"
         android:label="FlashCharge"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -32,7 +32,7 @@
         <activity android:name=".RegisterUsers" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".Account" />
-        <activity android:name=".TransHistory"></activity>
+        <activity android:name=".TransHistory" />
     </application>
 
 </manifest>

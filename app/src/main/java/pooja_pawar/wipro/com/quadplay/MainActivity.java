@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.logout:
                 session.logoutUser();
-
+                
                 //Code for deleting all the transactions
                 // db.deleteAllData();
                 Intent i = new Intent(this,LoginActivity.class);

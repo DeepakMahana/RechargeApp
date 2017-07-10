@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
@@ -50,17 +51,9 @@ public class RegisterUsers extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         alertManager = new AlertDialogManager();
 
-        mProgress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        mProgress.setTitle("Registering");
-        mProgress.setMessage("Please wait...");
-        mProgress.setCancelable(false);
-        mProgress.setIndeterminate(true);
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                mProgress.show();
 
                 mobileST = mobile.getText().toString();
                 emailS = email.getText().toString();
@@ -70,38 +63,32 @@ public class RegisterUsers extends AppCompatActivity {
 
                 //basic Error handling code,
                 if (mobileST.equals("") || emailS.equals("") || passwordS.equals("") || nameS.equals("") || cityS.equals("")) {
-                    mProgress.dismiss();
                     alertManager.showAlertDialog(RegisterUsers.this, "Registration Failed", "Please enter all the fields", false);
                 } else if (mobileST.length() < 10) {
-                    mProgress.dismiss();
                     alertManager.showAlertDialog(RegisterUsers.this, "Registration Failed", "Mobile Number too short. Please enter 10-digit Valid Mobile Number", false);
                 } else {
 
                     mobileS = Long.parseLong(mobileST);
 
-                    if (db.statusOfUserTable() == false) {
-                        mProgress.setTitle("Sending OTP");
+                    if (db.checkMobileExist(mobileS) == false) {
                         boolean res = otp.sendSMS(mobileS);
-                        mProgress.dismiss();
                         if (res) {
                             AlertDialog();
                         } else {
                             alertManager.showAlertDialog(RegisterUsers.this, "Registration Failed", "Something Went Wrong ! OTP Not Sent", false);
                         }
-                    } else
-
-                    if (db.checkMobileExist(mobileS)) {
-                        mProgress.dismiss();
+                    }
+                    else {
                         alertManager.showAlertDialog(RegisterUsers.this, "Registration Failed", "Mobile No Already Exists ! Try Another Mobile No", false);
-                    } else {
-                        mProgress.setTitle("Sending OTP");
-                        boolean res = otp.sendSMS(mobileS);
-                        mProgress.dismiss();
-                        if (res) {
-                            AlertDialog();
-                        } else {
-                            alertManager.showAlertDialog(RegisterUsers.this, "Registration Failed", "Something Went Wrong ! OTP Not Sent", false);
-                        }
+//                    } else {
+//                        mProgress.setTitle("Sending OTP");
+//                        boolean res = otp.sendSMS(mobileS);
+//                        mProgress.dismiss();
+//                        if (res) {
+//                            AlertDialog();
+//                        } else {
+//                            alertManager.showAlertDialog(RegisterUsers.this, "Registration Failed", "Something Went Wrong ! OTP Not Sent", false);
+//                        }
                     }
 
                 }

@@ -61,12 +61,14 @@ public class AddCard extends AppCompatActivity {
 
                 // Convert cardN to Long
                 card = Long.parseLong(cardN);
+                System.out.println(Integer.parseInt(cardExpiry1));
+                System.out.println(Integer.parseInt(cardExpiry2));
 
                 if (holderName.equals("") || bankName.equals("") || cardN.equals("") || cardExpiry1.equals("") || cardExpiry2.equals("") || cardCvv.equals("")) {
                     Toast.makeText(getApplicationContext(), "Please Enter All The Details", Toast.LENGTH_SHORT).show();
-                } else if (Integer.parseInt(cardExpiry1) < 1 && Integer.parseInt(cardExpiry1) > 12) {
+                } else if (Integer.parseInt(cardExpiry1) <= 0 && Integer.parseInt(cardExpiry1) >= 13) {
                     Toast.makeText(getApplicationContext(), "Please Enter A Valid Month", Toast.LENGTH_SHORT).show();
-                } else if (Integer.parseInt(cardExpiry2) > 25 && Integer.parseInt(cardExpiry2) < 17) {
+                } else if (Integer.parseInt(cardExpiry2) <=16 && Integer.parseInt(cardExpiry2) >= 35) {
                     Toast.makeText(getApplicationContext(), "Please Enter A Valid Year", Toast.LENGTH_SHORT).show();
                 } else {
 
