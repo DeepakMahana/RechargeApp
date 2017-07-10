@@ -45,7 +45,7 @@ public class TransListAdapter extends RecyclerView.Adapter<TransListAdapter.MyVi
 
         holder.subsNo.setText("Subscriber No - " + tb.getSerNum());
         holder.type.setText("Type - " + tb.getSerName());
-        holder.cardNo.setText("Debit/Credit Card No - " + tb.getCardNo());
+        holder.cardNo.setText("Card No - " + tb.getCardNo());
         holder.amountPaid.setText("Amount Paid - Rs." + tb.getAmount());
         holder.date.setText("Date - " + tb.getDate());
 

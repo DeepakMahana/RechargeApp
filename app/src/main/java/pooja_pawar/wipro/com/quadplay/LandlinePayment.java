@@ -101,7 +101,8 @@ public class LandlinePayment extends AppCompatActivity implements OnTapList {
 
     public void AlertDialog() {
 
-        final android.support.v7.app.AlertDialog.Builder builder = new AlertDialog.Builder(LandlinePayment.this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(LandlinePayment.this);
+
         builder.setTitle("You Didnt Add Any Payment Card Yet !!");
         // Set up the buttons
         builder.setPositiveButton("Add Card", new DialogInterface.OnClickListener() {
@@ -133,19 +134,28 @@ public class LandlinePayment extends AppCompatActivity implements OnTapList {
 
         number = Long.parseLong(numberS);
         am = Integer.parseInt(amountS);
+        int balance = db.checkBalance(cardno);
 
-        long id = db.addLandline(userMobile,number, am, b, dateD, timeD, cardno);
-        long transID = db.addTrans(cardno,"LandLine",number, am, userMobile, dateD, timeD);
-
-        if ((id != 0) && (transID != 0)) {
-            Toast.makeText(getApplicationContext(), "Landline Recharge Done Successfully !!", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-            finish();
+        if (balance < am){
+            Toast.makeText(getApplicationContext(), "Payment Not Done ! Balance is Low !", Toast.LENGTH_SHORT).show();
         }
-        else{
-            Toast.makeText(getApplicationContext(), "Card Not Added ! Please Try Again !", Toast.LENGTH_SHORT).show();
+        else {
+
+            long id = db.addLandline(userMobile, number, am, b, dateD, timeD, cardno);
+            long transID = db.addTrans(cardno, "LandLine", number, am, userMobile, dateD, timeD);
+            boolean res = db.updateBalance(cardno, balance - am);
+
+            if ((id != 0) && (transID != 0) && (res == true)) {
+
+                Toast.makeText(getApplicationContext(), "Landline Recharge Done Successfully !!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Card Not Added ! Please Try Again !", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

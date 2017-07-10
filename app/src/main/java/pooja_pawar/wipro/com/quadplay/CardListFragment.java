@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -33,21 +32,25 @@ public class CardListFragment extends DialogFragment{
     }
 
     public void loadDatabase() {
+
         sessionManager = new SessionManager(getActivity());
         mobile = sessionManager.getMobile();
         db = new DbHandlersUsers(getActivity());
         dataList = db.getUserCards(mobile);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         adapter = new CardBeanAdapter(getActivity(),dataList);
+
         adapter.setOnTapList(new OnTapList() {
             @Override
             public void OnTapView(long cno) {
-                Toast.makeText(getContext(), "You Selected " + cno, Toast.LENGTH_SHORT).show();
-                OnTapList ac = (OnTapList)getContext();
+
+                OnTapList ac = (OnTapList)getActivity();
                 ac.OnTapView(cno);
                 dismiss();
             }
         });
+
         rv.setHasFixedSize(true);
         rv.setLayoutManager(linearLayoutManager);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);

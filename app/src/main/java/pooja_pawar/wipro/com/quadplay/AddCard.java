@@ -49,6 +49,7 @@ public class AddCard extends AppCompatActivity {
         addPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //getting the required data
                 holderName = hName.getText().toString();
                 bankName = bName.getText().toString();
@@ -63,24 +64,29 @@ public class AddCard extends AppCompatActivity {
                 card = Long.parseLong(cardN);
                 System.out.println(Integer.parseInt(cardExpiry1));
                 System.out.println(Integer.parseInt(cardExpiry2));
+                int c1 = Integer.parseInt(cardExpiry1);
+                int c2 = Integer.parseInt(cardExpiry2);
 
                 if (holderName.equals("") || bankName.equals("") || cardN.equals("") || cardExpiry1.equals("") || cardExpiry2.equals("") || cardCvv.equals("")) {
                     Toast.makeText(getApplicationContext(), "Please Enter All The Details", Toast.LENGTH_SHORT).show();
-                } else if (Integer.parseInt(cardExpiry1) <= 0 && Integer.parseInt(cardExpiry1) >= 13) {
+                } else if ((c1 <= 0) || (c1 >= 13) ) {
                     Toast.makeText(getApplicationContext(), "Please Enter A Valid Month", Toast.LENGTH_SHORT).show();
-                } else if (Integer.parseInt(cardExpiry2) <=16 && Integer.parseInt(cardExpiry2) >= 35) {
+                } else if ((c2 <= 16) || (c2 >= 40) ) {
                     Toast.makeText(getApplicationContext(), "Please Enter A Valid Year", Toast.LENGTH_SHORT).show();
+                } else if (db.checkDuplicateCard(card)) {
+                    Toast.makeText(getApplicationContext(), "Card No Already Added ! Try Another Card No", Toast.LENGTH_SHORT).show();
                 } else {
-
-                    Intent i = new Intent(getApplicationContext(), MainActivity.class);
 
                     long id = db.addBankDetails(card, Expiry, cardCvv, mobile, holderName, bankName, dateD, timeD);
 
                     if (id != 0) {
+
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
                         Toast.makeText(getApplicationContext(), "Card Added Successfully !!", Toast.LENGTH_SHORT).show();
                         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(i);
                         finish();
+
                     }
                     else{
                         Toast.makeText(getApplicationContext(), "Card Not Added ! Please Try Again !", Toast.LENGTH_SHORT).show();

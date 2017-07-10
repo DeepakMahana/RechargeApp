@@ -141,19 +141,28 @@ public class Dth extends AppCompatActivity implements OnTapList {
 
         long dthNo = Long.parseLong(dthN);
         int amount = Integer.parseInt(amt);
+        int balance = db.checkBalance(cardno);
 
-        long id = db.addDth(mobile, dthNo, amount, provider, dateD, timeD, cardno);
-        long transID = db.addTrans(cardno,"DTH",dthNo, amount, mobile, dateD, timeD);
-
-        if ((id != 0) && (transID != 0)) {
-            Toast.makeText(getApplicationContext(), "DTH Payment Done Successfully !!", Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(getApplicationContext(), MainActivity.class);
-            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-            finish();
+        if (balance < amount){
+            Toast.makeText(getApplicationContext(), "Payment Not Done ! Balance is Low !", Toast.LENGTH_SHORT).show();
         }
-        else{
-            Toast.makeText(getApplicationContext(), "Card Not Added ! Please Try Again !", Toast.LENGTH_SHORT).show();
+        else {
+
+            long id = db.addDth(mobile, dthNo, amount, provider, dateD, timeD, cardno);
+            long transID = db.addTrans(cardno, "DTH", dthNo, amount, mobile, dateD, timeD);
+            boolean res = db.updateBalance(cardno, balance - amount);
+
+            if ((id != 0) && (transID != 0) && (res == true)) {
+
+                Toast.makeText(getApplicationContext(), "DTH Payment Done Successfully !!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+                finish();
+
+            } else {
+                Toast.makeText(getApplicationContext(), "Card Not Added ! Please Try Again !", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
