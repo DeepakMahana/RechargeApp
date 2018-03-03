@@ -45,7 +45,7 @@ public class OtpSend {
         System.out.println(mobileno);
 
         //Your authentication key
-        String authkey = "163728AzL4L4F5595b4811";
+        String authkey = "Your Auth Key";
         //Multiple mobiles numbers separated by comma
         String mobiles = new Long(mobileno).toString();;
         //Sender ID,While using route4 sender id should be 6 characters long.
